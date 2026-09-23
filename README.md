@@ -4,16 +4,33 @@
 
 Một agent chỉ nhận token gắn với một intent. Mọi đề xuất đi qua kiểm tra deterministic, reservation nguyên tử, adapter thanh toán và audit log. MVP chạy **sandbox**, không ký giao dịch blockchain và không chuyển tiền thật. Tab **Live LLM agent** gọi model thật qua API tương thích OpenAI; lõi Sentinel vẫn deterministic.
 
-## Chạy ngay
+## Chạy từ bản clone mới
 
-Yêu cầu **Node.js ≥ 22.18**, đã có sẵn trên máy này. Không có dependency bên thứ ba; không cần `npm install`.
+Yêu cầu **Git** và **Node.js ≥ 22.18**. Repo không có dependency bên thứ ba, nên không cần `npm install` hay bước build. Trên Windows PowerShell, dùng `npm.cmd` nếu chính sách chạy script chặn `npm.ps1`.
 
 ```powershell
-cd D:\Sentinel402
-npm run dev
+git clone https://github.com/vgnam/Sentinel402.git
+cd Sentinel402
+node --version
+npm.cmd run dev
 ```
 
-Mở **http://127.0.0.1:4020**. Chế độ demo chỉ bind loopback và cấp control key cho trình duyệt local. Không dùng chế độ này làm dịch vụ public. Dữ liệu lưu tại `data/sentinel.sqlite`; restart không xóa reservation hay lịch sử.
+Trên macOS/Linux, dùng cùng hai lệnh `git clone` và `cd`, sau đó chạy `npm run dev`. Mở **http://127.0.0.1:4020**. Ở terminal thứ hai, kiểm tra server bằng:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:4020/health
+```
+
+Endpoint phải trả về `ok: true` và `paymentMode: sandbox`. Nhấn Ctrl+C ở terminal chạy server để dừng. Chế độ demo chỉ bind loopback và cấp control key cho trình duyệt local. Không dùng chế độ này làm dịch vụ public. Dữ liệu lưu tại `data/sentinel.sqlite`; restart không xóa reservation hay lịch sử. Không cần tạo `.env` để chạy demo.
+
+Kiểm tra source và test trên một terminal khác:
+
+```powershell
+npm.cmd run check
+npm.cmd test
+```
+
+Trên macOS/Linux, thay `npm.cmd` bằng `npm`.
 
 1. **Overview:** chạy Split-payment attack; bốn yêu cầu 4 USDC tranh ngân sách 10 USDC, hai yêu cầu được thực thi.
 2. **Intent contracts:** tạo hợp đồng, sao chép token agent một lần; thu hồi khi kết thúc nhiệm vụ.
@@ -25,21 +42,27 @@ Mở **http://127.0.0.1:4020**. Chế độ demo chỉ bind loopback và cấp c
 
 ```powershell
 $env:SENTINEL_CONTROL_KEY = node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
-npm start
+npm.cmd start
 ```
 
 Nhập key trong console. Server và CLI LLM tự nạp `.env`; biến môi trường của shell được ưu tiên. `.env.example` chỉ là mẫu, không được tự nạp; giữ key thật trong `.env` đã được Git bỏ qua. `HOST` giới hạn loopback, `PORT` mặc định 4020, `SENTINEL_DB` chọn file SQLite. Tách reverse proxy có TLS/authentication nếu làm pilot có truy cập từ xa; upstream phải giữ Host loopback. Đây là MVP **một workspace**, chưa có cô lập tenant hay tài khoản SaaS.
 
 ## Agent LLM thật
 
-Đặt `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_MODEL` trong `.env`. Hỗ trợ `OPENAI_REASONING_EFFORT`, `OPENAI_MAX_TOKENS` (mặc định 2048), `OPENAI_TIMEOUT_MS` (60000). Model và base URL được giữ đúng cấu hình, không tự thay model khi lỗi.
+Chỉ khi muốn dùng tab **Live LLM agent**, sao chép `.env.example` thành `.env` rồi điền `OPENAI_API_KEY`, `OPENAI_BASE_URL` và `OPENAI_MODEL` của provider. Hỗ trợ `OPENAI_REASONING_EFFORT`, `OPENAI_MAX_TOKENS` (mặc định 2048), `OPENAI_TIMEOUT_MS` (60000). Model và base URL được giữ đúng cấu hình, không tự thay model khi lỗi.
 
 ```powershell
-npm run dev
-# Mở tab Live LLM agent, chọn một intent còn hiệu lực, rồi Run live agent.
-npm run demo:llm -- benign
-npm run demo:llm -- recipient_injection
-npm run benchmark:llm
+Copy-Item .env.example .env
+# Sửa .env bằng trình soạn thảo, rồi khởi động lại server:
+npm.cmd run dev
+```
+
+Mở tab **Live LLM agent**, chọn một intent còn hiệu lực, rồi bấm **Run live agent**. Các lệnh CLI sau chạy ở terminal khác và có thể phát sinh phí từ provider:
+
+```powershell
+npm.cmd run demo:llm -- benign
+npm.cmd run demo:llm -- recipient_injection
+npm.cmd run benchmark:llm
 ```
 
 Model nhận task, contract và hóa đơn giả lập dưới dạng tool output; tự quyết định gọi `submit_payment`, rồi nhận quyết định/receipt thật từ Sentinel sandbox. Mỗi lượt mặc định tối đa 3 model call và 4 đề xuất. API provider có thể tính phí. Key chỉ ở server, không gửi vào prompt hoặc frontend. CLI demo dùng DB riêng `data/live-agent.sqlite`; dashboard dùng DB workspace.
@@ -68,18 +91,26 @@ const result = await sentinel.pay({
 console.log(result.decision, result.status, result.reasons);
 ```
 
-Có thể chạy `npm run demo:agent` sau khi đặt hai biến môi trường trên. Số tiền dùng **chuỗi decimal, tối đa 6 chữ số thập phân**; nội bộ lưu integer micro-USDC. Không nhận số float, tự đổi tỷ giá hay làm tròn. `note` là dữ liệu không đáng tin, không ảnh hưởng quyền. Timestamp thực thi lấy từ server.
+Có thể chạy ví dụ SDK sau khi tạo intent cho phép `merchant:search`, `api:search` và ít nhất 1.25 USDC, rồi sao chép `intentId` cùng agent token trả về:
+
+```powershell
+$env:SENTINEL_INTENT_ID = "int_..."
+$env:SENTINEL_AGENT_TOKEN = "s402_agent_..."
+npm.cmd run demo:agent
+```
+
+Số tiền dùng **chuỗi decimal, tối đa 6 chữ số thập phân**; nội bộ lưu integer micro-USDC. Không nhận số float, tự đổi tỷ giá hay làm tròn. `note` là dữ liệu không đáng tin, không ảnh hưởng quyền. Timestamp thực thi lấy từ server.
 
 ## Kiểm thử và thí nghiệm
 
 ```powershell
-npm run check
-npm test
-npm run benchmark
+npm.cmd run check
+npm.cmd test
+npm.cmd run benchmark
 node research/run.mjs --seed 403 --repetitions 50 --out artifacts/seed-403
-npm run benchmark:systems
-npm run research:experiments
-npm run research:llm:plan
+npm.cmd run benchmark:systems
+npm.cmd run research:experiments
+npm.cmd run research:llm:plan
 ```
 
 Bộ mặc định: **900 trajectory = 18 nhóm × 50 biến thể**, đánh giá 12 phương pháp trên cùng corpus có seed. Kết quả tại [artifacts/benchmark/results.md](artifacts/benchmark/results.md), [metrics.csv](artifacts/benchmark/metrics.csv), [summary.json](artifacts/benchmark/summary.json), `corpus.jsonl`, `traces.jsonl`, `table.tex`. CSV là dữ liệu thực nghiệm, không phải bảng marketing. Số đo thời gian chỉ bao gồm hàm policy.
@@ -116,4 +147,4 @@ Bộ mở rộng đã thêm multi-seed, paired family bootstrap, sensitivity the
 - Reference hiện là chuỗi do caller cung cấp, chống replay theo `(intent, recipient, reference)`; thay cả reference có thể vượt lớp duplicate detection nhưng vẫn bị budget/count/frequency giới hạn. Invoice thật cần binding từ payment adapter/merchant.
 - SQLite của Node 22 còn phát cảnh báo experimental. File store và service phù hợp prototype/single-host pilot; cần đánh giá persistence, HA và security độc lập trước khi kết nối tiền thật.
 
-Đọc [kiến trúc và threat model](docs/ARCHITECTURE.md), [API](docs/API.md), [kế hoạch sản phẩm](docs/PRODUCT.md) và [kế hoạch paper](docs/PAPER_PLAN.md).
+Đọc [kiến trúc và threat model](docs/ARCHITECTURE.md), [API](docs/API.md), [kế hoạch sản phẩm](docs/PRODUCT.md), [kế hoạch paper](docs/PAPER_PLAN.md) và bản thảo [Problem Formulation and Methodology](docs/PROBLEM_FORMULATION_METHODOLOGY.md).
