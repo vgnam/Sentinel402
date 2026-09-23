@@ -1,0 +1,6 @@
+phase,beforeStatus,reconciledStatus,newPaymentStatus,encumberedUSDC,invariantPassed
+reserved_only,reserved,unknown,not_executed,1,true
+external_success,reserved,succeeded,not_executed,1,true
+external_failure,reserved,failed,succeeded,1,true
+finalized,succeeded,succeeded,not_executed,1,true
+revoked_pending,reserved,succeeded,not_executed,1,true

@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "generatedAt": "2026-09-21T15:49:31.920Z",
+    "node": "v22.18.0",
+    "platform": "win32",
+    "warning": "Sandbox fault/concurrency checks. The non-atomic row is an intentionally unsafe in-memory counterexample; timings are not a fair latency comparison with SQLite. Cross-connection worker contention is additionally tested by npm test."
+  },
+  "rows": [
+    {
+      "test": "Non-atomic snapshot counterexample",
+      "kind": "illustrative unsafe model",
+      "requests": 40,
+      "released": 40,
+      "encumberedUSDC": 40,
+      "budgetUSDC": 5,
+      "overshootUSDC": 35
+    },
+    {
+      "test": "SQLite atomic reservations",
+      "kind": "actual service; single process, concurrent requests",
+      "requests": 40,
+      "released": 5,
+      "encumberedUSDC": 5,
+      "budgetUSDC": 5,
+      "overshootUSDC": 0,
+      "elapsedMs": 86.523,
+      "p95RequestMs": 75.5321,
+      "adapterDelayMs": 5
+    },
+    {
+      "test": "Confirmed adapter failure",
+      "kind": "actual service",
+      "status": "failed",
+      "encumberedUSDC": 0
+    },
+    {
+      "test": "Unknown result and missing receipt",
+      "kind": "actual service",
+      "status": "unknown",
+      "encumberedUSDC": 1
+    },
+    {
+      "test": "Late success after lost response",
+      "kind": "actual service",
+      "initialStatus": "unknown",
+      "status": "succeeded",
+      "encumberedUSDC": 1
+    },
+    {
+      "test": "Restart after reservation, before submission",
+      "kind": "actual persistent store",
+      "status": "reserved",
+      "encumberedUSDC": 1
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "sentinel402",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Intent-bound payment authorization, sandbox console and reproducible research suite",
+  "engines": { "node": ">=22.18.0" },
+  "scripts": {
+    "dev": "node src/server.mjs --demo",
+    "start": "node src/server.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "benchmark": "node research/run.mjs",
+    "benchmark:systems": "node research/systems.mjs",
+    "check": "node scripts/check.mjs",
+    "demo:agent": "node examples/agent.mjs",
+    "demo:llm": "node examples/live-agent.mjs",
+    "benchmark:llm": "node research/live-run.mjs",
+    "research:experiments": "node research/experiments.mjs",
+    "research:stress": "node research/stress.mjs",
+    "research:randomized": "node research/randomized.mjs",
+    "research:llm:plan": "node research/live-run.mjs --expanded --dry-run"
+  }
+}

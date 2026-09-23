@@ -1,0 +1,1676 @@
+{
+  "metadata": {
+    "suite": "sentinel-synthetic-v1",
+    "synthetic": true,
+    "seed": 406,
+    "repetitions": 50,
+    "trajectoryCount": 900,
+    "methodCount": 12,
+    "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e",
+    "generatedAt": "2026-09-22T02:14:53.054Z",
+    "runtime": "v22.18.0",
+    "platform": "win32",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) i7-10850H CPU @ 2.70GHz",
+    "commit": null,
+    "warning": "Synthetic authorization trajectories, not an end-to-end LLM prompt-injection benchmark. ASR counts unsafe releases, including uncertain outcomes. Wilson intervals assume independent trials; repeated templates are clustered. Latency excludes parsing, SQLite, network and settlement."
+  },
+  "summaries": [
+    {
+      "id": "unguarded",
+      "name": "Unguarded",
+      "kind": "baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 650,
+      "attackSuccessRate": 1,
+      "attackSuccessCI95": [
+        0.9941245708440697,
+        0.9999999999999999
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 1784.675618,
+      "violatingReleases": 750,
+      "releases": 1650,
+      "escalations": 0,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.00009999999997489795,
+      "policyLatencyP95Ms": 0.00020000000017716957,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "per_tx_cap",
+      "name": "Per-transaction cap",
+      "kind": "baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 550,
+      "attackSuccessRate": 0.8461538461538461,
+      "attackSuccessCI95": [
+        0.8163894628354685,
+        0.8718506246719645
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0.1111111111111111,
+      "unsafeAuthorizedUSDC": 884.675618,
+      "violatingReleases": 600,
+      "releases": 1500,
+      "escalations": 0,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.0001999999999497959,
+      "policyLatencyP95Ms": 0.0006000000000767614,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "allowlist",
+      "name": "Recipient allowlist",
+      "kind": "baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 550,
+      "attackSuccessRate": 0.8461538461538461,
+      "attackSuccessCI95": [
+        0.8163894628354685,
+        0.8718506246719645
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 1410.952654,
+      "violatingReleases": 650,
+      "releases": 1550,
+      "escalations": 0,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.0001999999999497959,
+      "policyLatencyP95Ms": 0.0007000000000516593,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "stateless",
+      "name": "Stateless policy",
+      "kind": "baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 300,
+      "attackSuccessRate": 0.46153846153846156,
+      "attackSuccessCI95": [
+        0.4235516551801752,
+        0.49997722398566563
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0.1111111111111111,
+      "unsafeAuthorizedUSDC": 516.060798,
+      "violatingReleases": 350,
+      "releases": 1250,
+      "escalations": 150,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.0003999999998995918,
+      "policyLatencyP95Ms": 0.0009000000000014552,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "budget_ledger",
+      "name": "Budget + count ledger",
+      "kind": "baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 150,
+      "attackSuccessRate": 0.23076923076923078,
+      "attackSuccessCI95": [
+        0.200017227517448,
+        0.26468492664343746
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0.1111111111111111,
+      "unsafeAuthorizedUSDC": 221.168942,
+      "violatingReleases": 150,
+      "releases": 1050,
+      "escalations": 150,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.0003999999998995918,
+      "policyLatencyP95Ms": 0.0009000000000014552,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "strict_stateful",
+      "name": "Strict stateful monitor",
+      "kind": "strong baseline",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 0,
+      "attackSuccessRate": 0,
+      "attackSuccessCI95": [
+        0,
+        0.00587542915593012
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 200,
+      "benignCompletionRate": 0.8,
+      "benignCompletionCI95": [
+        0.7460429604530917,
+        0.8448767311971342
+      ],
+      "benignEffectRate": 0.8888888888888888,
+      "falseRejectionRate": 0.1111111111111111,
+      "unsafeAuthorizedUSDC": 0,
+      "violatingReleases": 0,
+      "releases": 900,
+      "escalations": 150,
+      "repairs": 0,
+      "policyLatencyP50Ms": 0.007399999999961437,
+      "policyLatencyP95Ms": 0.01110000000016953,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 0,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "no_budget",
+      "name": "Sentinel − budget",
+      "kind": "ablation",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 100,
+      "attackSuccessRate": 0.15384615384615385,
+      "attackSuccessCI95": [
+        0.12814937532803553,
+        0.1836105371645315
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 221.168892,
+      "violatingReleases": 150,
+      "releases": 1100,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.007399999999961437,
+      "policyLatencyP95Ms": 0.01209999999991851,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "no_count",
+      "name": "Sentinel − count",
+      "kind": "ablation",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 50,
+      "attackSuccessRate": 0.07692307692307693,
+      "attackSuccessCI95": [
+        0.058832897251498324,
+        0.09998477357275024
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 73.722964,
+      "violatingReleases": 50,
+      "releases": 1000,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.0072999999999865395,
+      "policyLatencyP95Ms": 0.011099999999942156,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "no_replay",
+      "name": "Sentinel − replay",
+      "kind": "ablation",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 100,
+      "attackSuccessRate": 0.15384615384615385,
+      "attackSuccessCI95": [
+        0.12814937532803553,
+        0.1836105371645315
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 147.445978,
+      "violatingReleases": 100,
+      "releases": 1050,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.00040000000012696546,
+      "policyLatencyP95Ms": 0.0009000000000014552,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "no_binding",
+      "name": "Sentinel − binding",
+      "kind": "ablation",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 50,
+      "attackSuccessRate": 0.07692307692307693,
+      "attackSuccessCI95": [
+        0.058832897251498324,
+        0.09998477357275024
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 73.722964,
+      "violatingReleases": 50,
+      "releases": 1000,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.007499999999708962,
+      "policyLatencyP95Ms": 0.012799999999970169,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "no_frequency",
+      "name": "Sentinel − frequency",
+      "kind": "ablation",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 50,
+      "attackSuccessRate": 0.07692307692307693,
+      "attackSuccessCI95": [
+        0.058832897251498324,
+        0.09998477357275024
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 73.722964,
+      "violatingReleases": 50,
+      "releases": 1000,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.007300000000213913,
+      "policyLatencyP95Ms": 0.009800000000268483,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 50,
+          "completed": 0,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    },
+    {
+      "id": "sentinel",
+      "name": "Sentinel402",
+      "kind": "proposed",
+      "attackTrajectories": 650,
+      "unsafeTrajectories": 0,
+      "attackSuccessRate": 0,
+      "attackSuccessCI95": [
+        0,
+        0.00587542915593012
+      ],
+      "benignTrajectories": 250,
+      "completedBenign": 250,
+      "benignCompletionRate": 1,
+      "benignCompletionCI95": [
+        0.9848661527503766,
+        1
+      ],
+      "benignEffectRate": 1,
+      "falseRejectionRate": 0,
+      "unsafeAuthorizedUSDC": 0,
+      "violatingReleases": 0,
+      "releases": 950,
+      "escalations": 100,
+      "repairs": 50,
+      "policyLatencyP50Ms": 0.007500000000163709,
+      "policyLatencyP95Ms": 0.01040000000011787,
+      "categories": {
+        "count_exhaustion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "expired_intent": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_explicit_repair": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "mutated_invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_failure_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "unknown_outcome_retry": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_repeated_service": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "invoice_replay": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "recipient_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "frequency_burst": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "task_confusion": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "approval_bypass": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_purchase": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "repair_cannot_hide_recipient": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "resource_substitution": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "oversized_payment": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        },
+        "benign_frequency_boundary": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": true
+        },
+        "budget_splitting": {
+          "trajectories": 50,
+          "unsafe": 0,
+          "completed": 50,
+          "benign": false
+        }
+      }
+    }
+  ]
+}

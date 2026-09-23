@@ -1,0 +1,1019 @@
+{
+  "metadata": {
+    "suite": "sentinel-research-experiments-v1",
+    "generatedAt": "2026-09-22T02:14:59.947Z",
+    "seeds": [
+      402,
+      403,
+      404,
+      405,
+      406
+    ],
+    "repetitions": 50,
+    "sourceHash": "6a4e4e20b5e3e03b315cd518e2349df46768475983af00690d026bf27f90a1af",
+    "node": "v22.18.0",
+    "warning": "Synthetic, paired mechanism evaluation. Family-cluster bootstrap intervals describe sensitivity within these hand-designed families; not a representative population confidence claim. Leave-one-family-out is composition sensitivity, not unseen-family training/test generalization. Repair prevalence is a reweighting calculation. System timings include SQLite and sandbox, not a real payment network."
+  },
+  "counts": {
+    "seeds": 5,
+    "policyTrajectories": 4500,
+    "methods": 12,
+    "sensitivityConditions": 36,
+    "contentionCells": 12,
+    "faultCells": 27,
+    "recoveryCases": 5
+  },
+  "seedRows": [
+    {
+      "seed": 402,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 402,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "cfac8ec096894bfc67cdedbcdea5a261c0aa3a7c1b68299f7fe7085a5bffd86f"
+    },
+    {
+      "seed": 403,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 403,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "b7272e8246a4b15932a8eda6a486108b36d9312aa70d106983f6496f39639004"
+    },
+    {
+      "seed": 404,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 404,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "8fc434bd0ac6dd60e61094eadd43ef334e9db8e713e738c0ad93410529271b74"
+    },
+    {
+      "seed": 405,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 405,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "ce4369ecdac0ef62bfccbb6330141d49597cd114e76b30ea79502d947a59a2d4"
+    },
+    {
+      "seed": 406,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    },
+    {
+      "seed": 406,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "82ec6fbd335df68a20ec4e2b5008603ab5927f92e6c917c1418d8ca83d6bd28e"
+    }
+  ],
+  "paired": [
+    {
+      "baseline": "unguarded",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -1,
+      "ci95": [
+        -1,
+        -1
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "unguarded",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "per_tx_cap",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.8461538461538461,
+      "ci95": [
+        -1,
+        -0.6153846153846154
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "per_tx_cap",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "allowlist",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.8461538461538461,
+      "ci95": [
+        -1,
+        -0.6153846153846154
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "allowlist",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "stateless",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.46153846153846156,
+      "ci95": [
+        -0.6923076923076923,
+        -0.15384615384615385
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "stateless",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "budget_ledger",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.23076923076923078,
+      "ci95": [
+        -0.46153846153846156,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "budget_ledger",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "strict_stateful",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "strict_stateful",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_budget",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.15384615384615385,
+      "ci95": [
+        -0.38461538461538464,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_budget",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_count",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_count",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_replay",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.15384615384615385,
+      "ci95": [
+        -0.38461538461538464,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_replay",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_binding",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_binding",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_frequency",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_frequency",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    }
+  ],
+  "repairMix": [
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    }
+  ],
+  "systems": {
+    "invariantFailures": 0
+  }
+}
