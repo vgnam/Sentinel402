@@ -43,3 +43,15 @@ test('demo scenario and audit export reflect actual executions',async t=>{
   const overview=await(await f.request('/api/overview')).json();assert.equal(overview.totals.committed,8e6);assert.equal(overview.decisions.Block,2);
   const audit=await(await f.request('/api/audit/export')).json();assert.equal(audit.integrity.valid,true);assert.equal(audit.records.length,7);
 });
+test('guided demo requires control auth and cannot read or change workspace data',async t=>{
+  const f=await fixture(t),created=await(await f.request('/api/intents',{body:demoContract()})).json();
+  assert.equal((await f.request('/api/demo/walkthrough',{token:'',body:{}})).status,401);
+  assert.equal((await f.request('/api/demo/walkthrough',{token:created.agentToken,body:{}})).status,401);
+  assert.equal((await f.request('/api/demo/walkthrough',{body:null})).status,400);
+  assert.equal((await f.request('/api/demo/walkthrough',{body:{intentId:created.contract.id}})).status,400);
+  const before=await(await f.request('/api/overview')).json();
+  const response=await f.request('/api/demo/walkthrough',{body:{}}),report=await response.json();
+  assert.equal(response.status,200);assert.equal(report.passed,true);
+  assert.ok(report.scenarios.every(s=>s.intentId!==created.contract.id));
+  assert.deepEqual(await(await f.request('/api/overview')).json(),before);
+});

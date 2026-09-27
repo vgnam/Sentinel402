@@ -13,6 +13,7 @@
     "benchmark:systems": "node research/systems.mjs",
     "check": "node scripts/check.mjs",
     "demo:agent": "node examples/agent.mjs",
+    "demo:judge": "node scripts/demo.mjs",
     "demo:llm": "node examples/live-agent.mjs",
     "benchmark:llm": "node research/live-run.mjs",
     "research:experiments": "node research/experiments.mjs",

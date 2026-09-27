@@ -17,6 +17,7 @@ Base URL: `http://127.0.0.1:4020`. JSON request/response, 32 KiB request limit. 
 | `/api/audit/verify?head=...` | GET | Control | Check chain and optionally externally retained head |
 | `/api/audit/export` | GET | Control | Full audit JSON export with chain head |
 | `/api/demo/scenario` | POST | Control | Run isolated sandbox scenario; body `{"id":"split"}` |
+| `/api/demo/walkthrough` | POST | Control | Body `{}`; run all six scenarios in a separate in-memory store and return evidence. Does not read or modify workspace contracts, call a model, or transfer funds. Concurrent runs return 409. |
 | `/api/research` | GET | Control | Latest saved benchmark summary |
 | `/api/research/run` | POST | Control | Run benchmark; `{seed:402,repetitions:50}`; max 100 |
 | `/api/research/export/:filename` | GET | Control | `metrics.csv`, `table.tex`, `summary.json`, `results.md`, `traces.jsonl`, `corpus.jsonl` |

@@ -9,6 +9,7 @@ import { SandboxAdapter } from './adapter.mjs';
 import { Sentinel } from './service.mjs';
 import { InputError, only } from './domain.mjs';
 import { SCENARIOS, runScenario } from './demo.mjs';
+import { runWalkthrough } from './walkthrough.mjs';
 import { loadEnv, llmConfig } from './config.mjs';
 import { LLMClient } from './llm.mjs';
 import { runAgent } from './agent.mjs';
@@ -23,7 +24,7 @@ async function body(req) {
 }
 export function createApp({store=new Store(),demo=false,controlKey=randomBytes(32).toString('hex'),adapter,clock=Date.now,benchmarkDir=resolve(ROOT,'artifacts/benchmark'),llmClient=null}={}) {
   const service=new Sentinel(store,adapter??new SandboxAdapter(store),{clock});
-  let benchmarkRunning=false,llmRunning=false,activeRun=Promise.resolve();
+  let benchmarkRunning=false,llmRunning=false,walkthroughRunning=false,activeRun=Promise.resolve();
   store.db.prepare("UPDATE llm_runs SET status='interrupted' WHERE status='running'").run();
   const readRun=row=>({...JSON.parse(row.report),status:row.status});
   const handler=async(req,res)=>{
@@ -53,6 +54,15 @@ export function createApp({store=new Store(),demo=false,controlKey=randomBytes(3
         return json(200,await service.execute(await body(req),bound));
       }
       if(!isControl)return json(401,{error:'Control-plane credential required'});
+      if(method==='POST'&&path==='/api/demo/walkthrough'){
+        if(walkthroughRunning)return json(409,{error:'A guided demo is already running'});
+        const input=await body(req);
+        if(!input||typeof input!=='object'||Array.isArray(input))throw new InputError('Expected an empty object');
+        only(input,[]);
+        if(walkthroughRunning)return json(409,{error:'A guided demo is already running'});
+        walkthroughRunning=true;
+        try{return json(200,await runWalkthrough({clock}));}finally{walkthroughRunning=false;}
+      }
       if(method==='GET'&&path==='/api/llm')return json(200,{
         provider:llmClient?.info()??{configured:false},running:llmRunning,cases:LIVE_CASES,
         benchmark:existsSync(resolve(ROOT,'artifacts/llm/summary.json'))?JSON.parse(readFileSync(resolve(ROOT,'artifacts/llm/summary.json'),'utf8')):null,

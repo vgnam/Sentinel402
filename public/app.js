@@ -4,7 +4,8 @@ const currency=v=>new Intl.NumberFormat('en-US',{maximumFractionDigits:6,minimum
 const pct=v=>`${(v*100).toFixed(1)}%`;
 const short=v=>v?`${v.slice(0,8)}…${v.slice(-4)}`:'—';
 const badge=v=>`<span class="badge ${esc(v)}">${esc(v)}</span>`;
-const labels={overview:'Overview',intents:'Intent contracts',playground:'Payment playground',agent:'Live LLM agent',audit:'Audit trail',research:'Benchmark lab'};
+const labels={overview:'Overview',demo:'Guided demo',intents:'Intent contracts',playground:'Payment playground',agent:'Live LLM agent',audit:'Audit trail',research:'Benchmark lab'};
+let walkthrough=null,walkthroughBusy=false;
 let live=null,activeLiveId=null,livePoll=null;
 let token=sessionStorage.getItem('sentinel-control')??'',data=null,research=null,page='overview',selectedIntent='',lastResult=null,toastTimer,renderVersion=0;
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),4000);}
@@ -14,6 +15,23 @@ function header(kicker,title,subtitle,action=''){return `<div class="page-head">
 function stat(title,value,unit,caption,symbol='↗'){return `<article class="stat"><div class="stat-top">${title}<span class="stat-symbol">${symbol}</span></div><div class="stat-value">${value}<small>${unit}</small></div><div class="stat-bottom"><i class="mini-dot"></i>${caption}</div></article>`;}
 const newButton='<button class="button primary" data-action="new-intent"><span>＋</span> Create intent</button>';
 function empty(title,copy,action=''){return `<div class="empty"><div class="empty-icon">◇</div><h3>${title}</h3><p>${copy}</p>${action}</div>`;}
+function walkthroughPage(){
+  const report=walkthrough;
+  return header('A FIVE-MINUTE PRODUCT TOUR','One task. A clear spending boundary.','See what happens when an AI purchasing agent asks to spend beyond its authority.',`<div class="row-actions"><button class="button primary" data-action="run-walkthrough" ${walkthroughBusy?'disabled':''}>${walkthroughBusy?'Running scenarios…':report?'Run again ↗':'Run guided demo ↗'}</button>${report?'<button class="button" data-action="export-walkthrough">Export evidence ↓</button>':''}</div>`)+`
+    <section class="hero demo-story"><div class="hero-copy"><p class="eyebrow">THE USER'S INTENT</p><h2>“Buy search credits.<br>Spend at most 10 USDC.”</h2><p>The operator delegates a task, an approved merchant, and a 5-USDC limit per purchase. A model can propose a payment; Sentinel controls whether it executes.</p><a class="hero-link" href="#agent">Try the live AI agent <span>↗</span></a></div><div class="demo-boundary"><p class="eyebrow">AT THE PAYMENT BOUNDARY</p><ol><li><strong>Propose</strong><span>Agent supplies a structured purchase.</span></li><li><strong>Authorize & reserve</strong><span>Check the contract and pending spend together.</span></li><li><strong>Execute & explain</strong><span>Settle in the sandbox and record the outcome.</span></li></ol></div></section>
+    <p class="notice">This tour uses scripted proposals and the real authorization service in an isolated sandbox. No model calls, API fees, wallet, or real funds. Use <a href="#agent">Live LLM agent</a> to test actual model tool calls separately.</p>
+    ${report?`<section class="stats" aria-live="polite">${stat('Scenarios matching expectations',`${report.summary.passed} / ${report.summary.scenarios}`,'',report.passed?'All expected effects verified':'Unexpected effects — inspect below')}${stat('Payment proposals',report.summary.proposals,'','Allowed, blocked, repaired, escalated')}${stat('Across six separate budgets',currency(report.summary.committedMicroUSDC),'USDC','Total simulated committed spend')}${stat('Audit records',report.audit.integrity.count,'',report.audit.integrity.valid?'Hash chain verified':'Integrity check failed')}</section>`:''}
+    <div class="demo-cases">${data.scenarios.map((s,index)=>{
+      const run=report?.scenarios.find(r=>r.scenario.id===s.id);
+      return `<article class="panel demo-case"><div class="demo-case-head"><span class="demo-number">0${index+1}</span><h2>${esc(s.name)}</h2>${run?badge(run.passed?'passed':'failed'):badge('ready')}</div><p class="muted">${esc(s.description)}</p>${run?`<div class="demo-outcomes">${run.results.map((r,i)=>`<div><span>Request ${i+1}</span>${badge(r.decision)}<span>${esc(r.status)}</span></div>`).join('')}</div><p class="demo-spend"><strong>${currency(run.intent.committed)} / ${currency(run.intent.budget)} USDC</strong> committed · ${currency(run.intent.reserved)} reserved</p><details class="run-details"><summary>Inspect checks and receipts</summary><ul class="demo-checks">${run.checks.map(c=>`<li>${c.passed?'✓':'✕'} ${esc(c.label)}</li>`).join('')}</ul><pre>${esc(JSON.stringify({intent:run.intent,results:run.results,transactions:run.transactions},null,2))}</pre></details>`:'<p class="form-hint">Run the tour to see actual service decisions and receipts.</p>'}</article>`;
+    }).join('')}</div>
+    <section class="panel demo-next"><div><p class="eyebrow">WHAT THIS PROVES</p><h2>Delegated spending is enforced outside the model.</h2><p class="muted">These fixtures demonstrate authorization and accounting. They do not establish real-world prompt-injection resistance or blockchain settlement. The x402 quote normalizer is offline; Solana integration remains future work.</p>${report?`<p class="code demo-head">Audit head: ${esc(report.audit.integrity.head)}</p><p class="form-hint">Evidence contains only this tour's synthetic contracts, receipts, and audit records. Retain the head separately to detect later rewriting.</p>`:''}</div><div class="row-actions"><a class="button" href="#intents">Create your own contract</a><a class="button" href="#research">Explore the benchmark</a></div></section>`;
+}
+function exportWalkthrough(){
+  if(!walkthrough)return;
+  const url=URL.createObjectURL(new Blob([JSON.stringify(walkthrough,null,2)+'\n'],{type:'application/json'}));
+  const link=document.createElement('a');link.href=url;link.download='sentinel402-demo-evidence.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 function paymentRows(limit=6){const records=data.audit.filter(a=>a.event==='payment.proposed').slice(0,limit);if(!records.length)return empty('A clear audit trail starts here','Run a scenario to see real authorization decisions.');return `<div class="table-wrap"><table><thead><tr><th>PAYMENT / RESOURCE</th><th>AMOUNT</th><th>DECISION</th></tr></thead><tbody>${records.map(r=>`<tr><td><strong>${esc(r.original?.recipient??'Invalid proposal')}</strong><small>${esc(r.original?.resource??'—')}</small></td><td>${esc(r.executable?currency(r.executable.amount):r.original?.amount??'—')} <span class="status-text">USDC</span></td><td>${badge(r.decision)}</td></tr>`).join('')}</tbody></table></div>`;}
 function overview(){const {decisions:d,totals:t}=data,proposals=Object.values(d).reduce((a,b)=>a+b,0);return header('YOUR AUTHORIZATION LAYER','Keep your agents within bounds.','A live view of delegated authority, payment decisions, and protected budgets.',newButton)+`
   <section class="hero"><div class="hero-copy"><p class="eyebrow">AUTONOMY, WITH BOUNDARIES</p><h2>Let agents act.<br>Keep authority.</h2><p>Bind every payment to user intent. Enforce limits across the entire task, before funds move.</p><a class="hero-link" href="#playground">Explore the payment playground <span>↗</span></a></div><div class="flow" aria-label="Agent proposal passes through Sentinel402 before the payment adapter"><div class="flow-node"><b>⌘</b>Agent</div><span class="flow-arrow"></span><div class="flow-node monitor"><img src="/favicon.svg" alt="">Sentinel402</div><span class="flow-arrow"></span><div class="flow-node"><b>▱</b>Payment</div><span class="flow-caption">Intent-bound · Stateful · Deterministic</span></div></section>
@@ -38,7 +56,7 @@ function bindLive(){
 }
 async function render(){if(!data)return;const version=++renderVersion;page=Object.keys(labels).includes(location.hash.slice(1))?location.hash.slice(1):'overview';$('#page-label').textContent=labels[page];$$('.nav').forEach(x=>{x.classList.toggle('active',x.dataset.page===page);x.setAttribute('aria-current',x.dataset.page===page?'page':'false');});$('#intent-count').textContent=data.intents.length;let html;
   clearTimeout(livePoll);
-  if(page==='agent'){live=await api('/llm');html=livePage();}else if(page==='research'){if(!research)research=await api('/research');html=researchPage();}else if(page==='audit')html=await audit();else html=({overview,intents,playground}[page])();
+  if(page==='agent'){live=await api('/llm');html=livePage();}else if(page==='research'){if(!research)research=await api('/research');html=researchPage();}else if(page==='audit')html=await audit();else html=({overview,intents,playground,demo:walkthroughPage}[page])();
   if(version!==renderVersion)return;$('#main').innerHTML=html;bindForms();bindLive();
 }
 async function refresh(){data=await api('/overview');await render();}
@@ -47,6 +65,14 @@ function bindForms(){const payment=$('#payment-form');if(payment){const sync=()=
 }
 document.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;try{
   if(b.dataset.page){location.hash=b.dataset.page;return;}
+  if(b.dataset.action==='run-walkthrough'){
+    if(walkthroughBusy)return;
+    walkthroughBusy=true;await render();
+    try{walkthrough=await api('/demo/walkthrough',{});toast(walkthrough.passed?'Six demo scenarios verified. Evidence is ready.':'Some outcomes differ from expectations. Inspect the checks.');}
+    finally{walkthroughBusy=false;await render();}
+    return;
+  }
+  if(b.dataset.action==='export-walkthrough'){exportWalkthrough();return;}
   if(b.dataset.liveSelect){activeLiveId=b.dataset.liveSelect;await render();return;}
   if(b.dataset.liveExport){await download(`/llm/runs/${b.dataset.liveExport}`,`${b.dataset.liveExport}.json`);return;}
   if(b.dataset.liveFile){await download(`/research/llm/export/${b.dataset.liveFile}`,`llm-${b.dataset.liveFile}`);return;}

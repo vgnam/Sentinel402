@@ -1,5 +1,26 @@
 # Sentinel402
 
+## UniHackfest 2026 demo
+
+**AI agents propose payments. You keep spending authority.** Start the local sandbox with `npm run dev`, then open **http://127.0.0.1:4020/#demo** and click **Run guided demo**. Six scenarios exercise the actual service and export a fresh evidence report. This tour makes no model calls and uses no real funds; the separate **Live LLM agent** tab supports real inference when configured.
+
+```powershell
+npm.cmd run check
+npm.cmd test
+npm.cmd run demo:judge
+npm.cmd run dev
+```
+
+On macOS/Linux use `npm` instead of `npm.cmd`. Requires Node.js ≥22.18; no install or build step. `demo:judge` creates `artifacts/demo/evidence.json` and `results.md` using an isolated in-memory database, without reading `.env` or your private workspace. Expected result: **6/6 scenarios, 10 proposals, 21 audit records**. Repeat runs create new IDs and audit hashes.
+
+- [Verified hackathon requirements, deadlines, and open questions](docs/HACKATHON.md)
+- [Prepared Corelia submission text and remaining personal/public-link fields](docs/SUBMISSION.md)
+- [Demo recording script, pitch, and judge Q&A](docs/DEMO_SCRIPT.md)
+
+Recommended direction: **Best AI Product / AI x Web3**, subject to your track choice and organizer eligibility rules. Current payments are simulated; there is no deployed Solana program or live blockchain settlement. The linked documents separate completed features from future integrations. Local preparation does not submit or publish the project.
+
+---
+
 **Stateful authorization for agent payments.** MVP API/SDK, dashboard và bộ benchmark phục vụ nghiên cứu. Lõi thực thi không dùng LLM.
 
 Một agent chỉ nhận token gắn với một intent. Mọi đề xuất đi qua kiểm tra deterministic, reservation nguyên tử, adapter thanh toán và audit log. MVP chạy **sandbox**, không ký giao dịch blockchain và không chuyển tiền thật. Tab **Live LLM agent** gọi model thật qua API tương thích OpenAI; lõi Sentinel vẫn deterministic.
