@@ -1,0 +1,19 @@
+% Synthetic local results; not an LLM robustness claim.
+\begin{tabular}{lrrr}
+\hline
+Method & Unsafe (\%) & Completion (\%) & p95 (ms) \\
+\hline
+Unguarded & 100.0 & 88.9 & 0.0004 \\
+Per-transaction cap & 88.9 & 88.9 & 0.0006 \\
+Recipient allowlist & 100.0 & 88.9 & 0.0005 \\
+Stateless policy & 88.9 & 88.9 & 0.0036 \\
+Budget + count ledger & 44.4 & 88.9 & 0.0037 \\
+Strict stateful monitor & 0.0 & 88.9 & 0.0290 \\
+Sentinel $-$ budget & 44.4 & 100.0 & 0.0256 \\
+Sentinel $-$ count & 0.0 & 100.0 & 0.0258 \\
+Sentinel $-$ replay & 44.4 & 100.0 & 0.0016 \\
+Sentinel $-$ binding & 0.0 & 100.0 & 0.0293 \\
+Sentinel $-$ frequency & 0.0 & 100.0 & 0.0270 \\
+Sentinel402 & 0.0 & 100.0 & 0.0224 \\
+\hline
+\end{tabular}

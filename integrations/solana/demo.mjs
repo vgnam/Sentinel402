@@ -6,11 +6,14 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Store } from '../../src/store.mjs';
 import { Sentinel } from '../../src/service.mjs';
-import { SolanaDevnetAdapter, DEVNET_GENESIS } from '../../src/solana-devnet.mjs';
+import { SolanaDevnetAdapter } from '../../src/solana-devnet.mjs';
+import { SolanaLocalAdapter } from '../../src/solana-local.mjs';
+import { testNetwork } from '../../src/solana-network.mjs';
 import { demoContract } from '../../src/demo.mjs';
+import { demoOptions } from './demo-options.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const data = resolve(root, 'data/devnet'), out = resolve(root, 'artifacts/realism/devnet');
+const { local, runId, endpoint, data, out } = demoOptions(process.argv.slice(2), root);
 mkdirSync(data, { recursive: true }); mkdirSync(out, { recursive: true });
 const walletFile = resolve(data, 'test-wallets.json'), stateFile = resolve(data, 'demo-state.json');
 const wallet = existsSync(walletFile) ? JSON.parse(readFileSync(walletFile, 'utf8')) : {
@@ -18,15 +21,14 @@ const wallet = existsSync(walletFile) ? JSON.parse(readFileSync(walletFile, 'utf
 };
 if (!existsSync(walletFile)) writeFileSync(walletFile, JSON.stringify(wallet), { mode: 0o600, flag: 'wx' });
 const payer = Keypair.fromSecretKey(Uint8Array.from(wallet.payer)), merchant = Keypair.fromSecretKey(Uint8Array.from(wallet.merchant)), mint = Keypair.fromSecretKey(Uint8Array.from(wallet.mint));
-const endpoint = 'https://api.devnet.solana.com';
 const boundedFetch = (url, init) => fetch(url, { ...init, signal: AbortSignal.timeout(15_000), redirect: 'error' });
 const connection = new Connection(endpoint, { commitment: 'confirmed', disableRetryOnRateLimit: true, fetch: boundedFetch });
 let requestId = 0, broadcasts = 0, loseNextResponse = false;
 const rpc = async (method, params) => {
   const response = await boundedFetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: ++requestId, method, params }) });
-  if (!response.ok) throw Object.assign(new Error(`DEVNET_RPC_HTTP_${response.status}`), { code: `DEVNET_RPC_HTTP_${response.status}` });
+  if (!response.ok) throw Object.assign(new Error(`SOLANA_RPC_HTTP_${response.status}`), { code: `SOLANA_RPC_HTTP_${response.status}` });
   const body = await response.json();
-  if (body.error) throw Object.assign(new Error(`DEVNET_RPC_${body.error.code}`), { code: `DEVNET_RPC_${body.error.code}` });
+  if (body.error) throw Object.assign(new Error(`SOLANA_RPC_${body.error.code}`), { code: `SOLANA_RPC_${body.error.code}` });
   if (method === 'sendTransaction') { broadcasts++; if (loseNextResponse) { loseNextResponse = false; throw new Error('SIMULATED_LOST_RESPONSE_AFTER_REAL_BROADCAST'); } }
   return body.result;
 };
@@ -35,11 +37,11 @@ const waitSignature = async signature => {
   for (let i = 0; i < 20; i++) {
     const status = (await rpc('getSignatureStatuses', [[signature], { searchTransactionHistory: true }])).value?.[0];
     if (status && ['confirmed', 'finalized'].includes(status.confirmationStatus)) {
-      if (status.err) throw new Error('DEVNET_TRANSACTION_FAILED'); return;
+      if (status.err) throw new Error('SOLANA_TRANSACTION_FAILED'); return;
     }
     await sleep(1500);
   }
-  throw new Error('DEVNET_CONFIRMATION_PENDING');
+  throw new Error('SOLANA_CONFIRMATION_PENDING');
 };
 const state = existsSync(stateFile) ? JSON.parse(readFileSync(stateFile, 'utf8')) : {};
 const saveState = () => writeFileSync(stateFile, JSON.stringify(state, null, 2), { mode: 0o600 });
@@ -50,23 +52,28 @@ function base58(bytes) {
   while (n) { result = alphabet[Number(n % 58n)] + result; n /= 58n; }
   for (const b of bytes) { if (b !== 0) break; result = '1' + result; } return result;
 }
-const report = { generatedAt: new Date().toISOString(), network: 'Solana devnet', status: 'starting',
+const report = { generatedAt: new Date().toISOString(), network: local ? 'Solana local validator' : 'Solana devnet', mode: local ? 'solana-local' : 'solana-devnet', runId, status: 'starting',
   asset: 'New six-decimal test token; NOT USDC and NOT money', payer: payer.publicKey.toBase58(), merchant: merchant.publicKey.toBase58(),
   mint: mint.publicKey.toBase58(), rpc: endpoint, transactions: [], limitations: [
     'One client-side SPL test-token adapter; not a deployed Sentinel Solana program or complete x402 protocol integration.',
     'Invoices are pinned by the trusted demo operator; external merchant signatures/provenance are not demonstrated.',
     'Token budgets exclude SOL fees and account rent. Unknown outbox entries never generate a fresh replacement transaction automatically.',
+    ...(local ? ['Private local ledger only; not evidence of public devnet/mainnet settlement or distributed consensus performance.'] : []),
   ] };
 let store;
 try {
-  if (await rpc('getGenesisHash', []) !== DEVNET_GENESIS) throw new Error('DEVNET_GENESIS_REQUIRED');
+  const genesis = await rpc('getGenesisHash', []);
+  const network = testNetwork({ network: local ? 'local' : 'devnet', endpoint, genesis });
+  if (genesis !== network.genesis) throw new Error('DEVNET_GENESIS_REQUIRED');
+  if (state.genesis && state.genesis !== genesis) throw new Error('LOCAL_GENESIS_CHANGED_USE_NEW_RUN');
+  state.genesis = genesis; saveState(); report.genesis = genesis; report.validatorVersion = await rpc('getVersion', []);
   const source = getAssociatedTokenAddressSync(mint.publicKey, payer.publicKey), destination = getAssociatedTokenAddressSync(mint.publicKey, merchant.publicKey);
   if (!state.setupConfirmed) {
     const balance = await connection.getBalance(payer.publicKey);
     if (balance < 20_000_000) {
-      console.log(`Requesting free devnet SOL for test wallet ${report.payer}`);
+      console.log(`Requesting free ${local ? 'local' : 'devnet'} SOL for test wallet ${report.payer}`);
       // One request per invocation. Rate limits are reported, never bypassed.
-      const faucetSignature = await rpc('requestAirdrop', [report.payer, 100_000_000, { commitment: 'confirmed' }]);
+      const faucetSignature = await rpc('requestAirdrop', [report.payer, local ? 1_000_000_000 : 100_000_000, { commitment: 'confirmed' }]);
       state.airdropSignature = faucetSignature; saveState(); await waitSignature(faucetSignature);
     }
     if (!state.setupWire) {
@@ -82,17 +89,18 @@ try {
       tx.sign(payer, mint); state.setupWire = tx.serialize().toString('base64'); state.setupSignature = base58(tx.signature);
       state.setupLastValidHeight = lifetime.lastValidBlockHeight; saveState();
     }
-    console.log('Creating the dedicated test mint and token accounts on devnet.');
+    console.log(`Creating the dedicated test mint and token accounts on ${local ? 'the local validator' : 'devnet'}.`);
     const status = (await rpc('getSignatureStatuses', [[state.setupSignature], { searchTransactionHistory: true }])).value?.[0];
     if (!status) await rpc('sendTransaction', [state.setupWire, { encoding: 'base64', skipPreflight: false, preflightCommitment: 'confirmed', maxRetries: 0 }]);
     await waitSignature(state.setupSignature); state.setupConfirmed = true; saveState();
   }
   report.setupSignature = state.setupSignature;
   store = new Store(resolve(data, 'authorization.sqlite'));
-  const resource = 'https://fixtures.sentinel.test/devnet/search';
+  const resource = `https://fixtures.sentinel.test/${local ? 'local' : 'devnet'}/search`;
   const invoices = new Map(['invoice-clean', 'invoice-lost-response'].map(reference => [reference, { reference, amount: 1_000_000,
     recipient: report.merchant, resource, payer: report.payer, mint: report.mint, expiresAt: Date.now() + 3600_000 }]));
-  const adapter = new SolanaDevnetAdapter(store, { rpc, payer: report.payer, mint: report.mint, invoices,
+  const Adapter = local ? SolanaLocalAdapter : SolanaDevnetAdapter;
+  const adapter = new Adapter(store, { rpc, endpoint, genesis, payer: report.payer, mint: report.mint, invoices,
     prepareTransfer: async ({ action, key }) => {
       const lifetime = await connection.getLatestBlockhash('confirmed');
       const tx = new Transaction({ feePayer: payer.publicKey, recentBlockhash: lifetime.blockhash }).add(
@@ -105,7 +113,7 @@ try {
     } });
   const service = new Sentinel(store, adapter, { paymentTimeoutMs: 20_000 });
   if (!state.intentId) {
-    const { contract } = service.createIntent(demoContract(Date.now(), { name: 'Devnet test-token purchases', purpose: 'Pay two pinned test invoices',
+    const { contract } = service.createIntent(demoContract(Date.now(), { name: `${local ? 'Local' : 'Devnet'} test-token purchases`, purpose: 'Pay two pinned test invoices',
       budget: '2', perTransaction: '1', recipients: [report.merchant], resources: [resource], maxTransactions: 2 }));
     state.intentId = contract.id; saveState();
   }
@@ -122,16 +130,24 @@ try {
       await sleep(1500); const tx = await service.reconcile(outcome.transactionId); outcome = { ...outcome, status: tx.status, receipt: tx.receipt };
     }
     report.transactions.push({ reference, initialStatus, status: outcome.status, receipt: outcome.receipt });
-    if (outcome.status !== 'succeeded') throw new Error('DEVNET_PAYMENT_NOT_CONFIRMED');
+    if (outcome.status !== 'succeeded') throw new Error('SOLANA_PAYMENT_NOT_CONFIRMED');
+    const sentBeforeRetry = broadcasts, tx = store.transaction(outcome.transactionId);
+    const duplicate = await adapter.pay(tx.action, tx.id);
+    report.transactions.at(-1).idempotentRetry = duplicate.status === 'succeeded' && duplicate.transaction === tx.receipt.transaction && broadcasts === sentBeforeRetry;
   }
   const blocked = await service.execute({ intentId: state.intentId, amount: '1', recipient: report.payer, resource, reference: 'unauthorized-recipient' }, state.intentId);
   report.blocked = { decision: blocked.decision, status: blocked.status, reasons: blocked.reasons };
   report.committedTestTokens = store.intents().find(i => i.id === state.intentId).committed / 1e6;
   report.audit = store.verifyAudit(); report.broadcastsThisInvocation = broadcasts;
-  report.status = report.transactions.every(t => t.status === 'succeeded') && blocked.decision === 'Block' && report.audit.valid ? 'passed' : 'failed';
+  report.tokenBalances = { payer: (await rpc('getTokenAccountBalance', [source.toBase58(), { commitment: 'confirmed' }])).value.amount,
+    merchant: (await rpc('getTokenAccountBalance', [destination.toBase58(), { commitment: 'confirmed' }])).value.amount, decimals: 6 };
+  report.status = report.transactions.every(t => t.status === 'succeeded' && t.idempotentRetry) && blocked.decision === 'Block' && report.audit.valid &&
+    report.tokenBalances.payer === '8000000' && report.tokenBalances.merchant === '2000000' ? 'passed' : 'failed';
+  if (report.status !== 'passed') process.exitCode = 1;
 } catch (error) {
-  report.status = 'incomplete'; report.reason = error.code ?? error.message;
-  report.nextStep = 'Inspect the reported devnet RPC/faucet condition. Rerun reuses the same wallet, setup transaction, and payment outbox. Do not treat an incomplete report as chain evidence.';
+  report.status = 'incomplete'; report.reason = error.code ?? (error.message === 'fetch failed' ? 'SOLANA_RPC_UNREACHABLE' : error.message);
+  report.nextStep = local ? 'Start the local validator, then resume with --local --run-id and this runId. After resetting the validator, start a new run instead. Incomplete reports are not successful settlement evidence.' :
+    'Inspect the reported devnet RPC/faucet condition. Rerun reuses the same wallet, setup transaction, and payment outbox. Do not treat an incomplete report as chain evidence.';
   process.exitCode = 1;
 } finally {
   store?.close(); writeFileSync(resolve(out, 'summary.json'), JSON.stringify(report, null, 2));

@@ -75,6 +75,14 @@ Demo sẽ mint token thử nghiệm riêng sáu chữ số thập phân, không 
 
 ## Tái lập
 
+Đã thêm chế độ local riêng để chạy nhiều lần không phụ thuộc faucet công khai: `npm run validator:local`, `npm run demo:local`, `npm run research:local -- --repetitions 3`. Mỗi lần thử mới có ví/mint/contract/outbox riêng, pin genesis và chỉ dùng RPC loopback. Xem [hướng dẫn local validator](LOCAL_VALIDATOR.md) cho Windows/WSL, resume và reset. Kết quả local phải được ghi riêng, không thay thế phần devnet chưa xác nhận ở trên.
+
+Đã chạy thật trên Agave 4.3.0 trong Ubuntu/WSL: **3/3 run đạt, 6 thanh toán được xác nhận trên local ledger**, gồm phục hồi mất response, retry không trả hai lần và balance đúng. Sau restart validator, resume một run có **0 broadcast mới**. [Bằng chứng local](../artifacts/realism/local/batch-2026-09-28T11-58-09-217Z-1ff10a61/summary.json). Phần public devnet vẫn chưa hoàn tất và multi-model chưa được chạy thêm.
+
+Đợt chạy mở rộng trên cùng ledger (genesis `HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL`): thêm batch **10/10** và **32/32** đạt, cộng dồn **63 run đạt và 126 payment transaction được xác nhận**, mỗi run vẫn có ví/mint/contract/outbox riêng. Một batch 50 run dừng đúng cách ở **18/50**: ổ hệ thống chỉ còn 0.05 GB, RocksDB trong WSL lỗi `Input/output error` và validator panic ở `solReplayStage`; runner ghi `incomplete` rồi dừng, **không invariant nào của Sentinel bị vi phạm**. Đã chuyển image Ubuntu sang `D:\wsl\Ubuntu` (có backup export 2.38 GB) và thay flag deprecated `--limit-ledger-size` bằng `--limit-blockstore-size 10000`; ledger giữ khoảng 0.6 GB qua 32 run sau đó. [Batch 32 run](../artifacts/realism/local/batch-2026-09-28T14-42-13-947Z-142f7906/summary.json), [batch 10 run](../artifacts/realism/local/batch-2026-09-28T12-20-33-377Z-3abd3996/summary.json), [batch dừng ở 18/50](../artifacts/realism/local/batch-2026-09-28T12-22-23-016Z-dd6308a6/summary.json).
+
+Đợt bổ sung cùng ngày cho các suite khác: **3 seed mới × 50 repetition = 2.700 trajectory, 0 system invariant failure** ([extra-seeds](../artifacts/experiments/extra-seeds/results.md)); workflow chạy lại 3 repetition = **144 episode** ([workflow-r3](../artifacts/realism/workflow-r3/results.md)); crash test 10 repetition = **50 case, 0 invariant failure** ([crashes-r10](../artifacts/realism/crashes-r10/results.md)); adaptive search ở ngân sách tối đa được phép (**6 trial**, dừng sau 2 trial vì không còn candidate giữ được an toàn). Kết luận không đổi: strict-stateful và Sentinel vẫn giống nhau trên workflow scripted, không có live model call mới, và kết quả local không thay thế bằng chứng settlement trên mạng công khai.
+
 ```powershell
 npm.cmd run check
 npm.cmd test

@@ -1,0 +1,1233 @@
+[
+  {
+    "trajectory": 0,
+    "contract": {
+      "id": "int_85108cde-7656-43d7-b89c-7020afc32ce5",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 1,
+    "contract": {
+      "id": "int_5abe3fef-aec2-4822-b08e-c9507b96f447",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 2,
+    "contract": {
+      "id": "int_25013fb9-deb8-4f8c-aca4-9a394a64e73c",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 3,
+    "contract": {
+      "id": "int_08f54644-f790-49ad-ad1b-a5fa3b1f8bbb",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 4,
+    "contract": {
+      "id": "int_0a0f4391-d18b-4724-9b45-6c4b4fb5b6b5",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 5,
+    "contract": {
+      "id": "int_dc4e99c1-7b7d-48d9-b023-14a88481a829",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 6,
+    "contract": {
+      "id": "int_fbf2eced-0f98-4ab3-af1e-ee8aaa9e98d7",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 7,
+    "contract": {
+      "id": "int_11e1b208-72f8-4054-a8b5-220f90411d6d",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 8,
+    "contract": {
+      "id": "int_69e557e7-0b54-42ac-82ff-bcec6bc57ea8",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 9,
+    "contract": {
+      "id": "int_25c723ff-0844-4101-8265-5a4f4f98c9df",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 10,
+    "contract": {
+      "id": "int_45f4802e-5f7c-48cf-9d35-5f575d1b2bc3",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 11,
+    "contract": {
+      "id": "int_3ab77266-9156-4558-9bf5-903f4687900e",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 12,
+    "contract": {
+      "id": "int_490494c8-fc82-41d4-ba75-df55432edee3",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 13,
+    "contract": {
+      "id": "int_16efc1d9-82c5-44fa-a1e3-b9ef0781c464",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 14,
+    "contract": {
+      "id": "int_0b0f45d5-7670-47fb-ab2a-8e49730c6409",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 15,
+    "contract": {
+      "id": "int_8a47ebaa-e2e9-4ca5-99cc-1e7b945c9267",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 16,
+    "contract": {
+      "id": "int_ba57bf57-f927-4928-8550-d9dcca41efe4",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 17,
+    "contract": {
+      "id": "int_3779dfaf-e659-4aa2-9973-8404eb688545",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 18,
+    "contract": {
+      "id": "int_4e17346c-c2f3-4007-b16e-8b3e4552fe23",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 19,
+    "contract": {
+      "id": "int_f0566f15-ddf4-453c-84d1-e0be97c74859",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 20,
+    "contract": {
+      "id": "int_9e9a75b2-b5b9-43af-961b-1ec226414a66",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 21,
+    "contract": {
+      "id": "int_2954e661-25bf-43ba-9af7-c88e4433ab2c",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 22,
+    "contract": {
+      "id": "int_e51fb230-fc6f-4dd3-969d-57d27c9e1526",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 23,
+    "contract": {
+      "id": "int_0eb6e661-660a-4a85-a816-2ab59193bc28",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 24,
+    "contract": {
+      "id": "int_772e6de4-62a0-4231-8e67-87ace68a965d",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 25,
+    "contract": {
+      "id": "int_83ac8ec6-2218-4038-bc62-b0d1cc6a87c1",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 26,
+    "contract": {
+      "id": "int_aa90c0ff-3062-42c6-aa16-fda533d2ec69",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 27,
+    "contract": {
+      "id": "int_739f5ffa-91b4-4869-8e6d-ce521ba272cf",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 28,
+    "contract": {
+      "id": "int_75ddf550-0fce-4a3b-9779-78c498a036a2",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 29,
+    "contract": {
+      "id": "int_dffa1b9c-09ef-4599-9cc6-d2c933f0fb05",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 30,
+    "contract": {
+      "id": "int_3b811c2e-25c5-4282-8759-d08679f89a84",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 31,
+    "contract": {
+      "id": "int_783a0a66-f349-4dbb-b84a-3ec90e6033d3",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 32,
+    "contract": {
+      "id": "int_f51aa282-c928-43ff-94f1-5193e65260f9",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 33,
+    "contract": {
+      "id": "int_38b24939-fdd5-45f9-aad9-46de8de7b163",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 34,
+    "contract": {
+      "id": "int_e71a7bf9-93bb-4c88-a6ae-60f72e35c75b",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 35,
+    "contract": {
+      "id": "int_4aec6cd5-b99c-4213-a3ab-ab0a1bff4e05",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 36,
+    "contract": {
+      "id": "int_e8d046f7-b2d8-41e5-8b24-cc0b5f4d8ccd",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 37,
+    "contract": {
+      "id": "int_9b5ca78a-a785-45cc-ba1e-b5187fe128c4",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 38,
+    "contract": {
+      "id": "int_a032d10b-63ad-4092-8f88-3b038b2686b1",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 2,
+      "repairResources": [],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 39,
+    "contract": {
+      "id": "int_93c2e74d-76c9-443e-a292-dc04aadd5aeb",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 40,
+    "contract": {
+      "id": "int_eb141b73-f4f7-4afd-bb7c-79dad26ad8b6",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 41,
+    "contract": {
+      "id": "int_d9525b22-1462-4866-a28a-9d6a651d9779",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 42,
+    "contract": {
+      "id": "int_bbebc984-94ad-4b64-84b5-21ea00897a91",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 43,
+    "contract": {
+      "id": "int_5ad6d29f-b88f-4962-98dd-f85cc0b0c6ec",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 44,
+    "contract": {
+      "id": "int_536dc854-7c9e-403c-afa1-403cac68ae83",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 2000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 45,
+    "contract": {
+      "id": "int_03675ed6-7037-4b6e-9a1f-4e9096d05e02",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 5000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [],
+      "frequency": {
+        "max": 2,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 46,
+    "contract": {
+      "id": "int_179ebcd6-2f6c-44f7-8159-f8d6916028c6",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 5000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 4,
+        "windowMs": 1000
+      },
+      "escalateAbove": 1000000
+    }
+  },
+  {
+    "trajectory": 47,
+    "contract": {
+      "id": "int_4bdffb54-41a7-4d18-bb43-e2f34b56ab67",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 50000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 30,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 48,
+    "contract": {
+      "id": "int_8837c79e-2145-44cd-bc01-1f0695ba8bec",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 10000000,
+      "perTransaction": 1000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 10,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": {
+        "max": 1,
+        "windowMs": 1000
+      },
+      "escalateAbove": null
+    }
+  },
+  {
+    "trajectory": 49,
+    "contract": {
+      "id": "int_5d8f3c7e-14d1-4118-a198-d86ed48ad274",
+      "name": "Research assistant",
+      "purpose": "Buy search and enrichment credits for a market research task",
+      "budget": 20000000,
+      "perTransaction": 3000000,
+      "recipients": [
+        "merchant:search"
+      ],
+      "resources": [
+        "api:search"
+      ],
+      "validFrom": 1767268740000,
+      "validUntil": 1767268820000,
+      "maxTransactions": 5,
+      "repairResources": [
+        "api:search"
+      ],
+      "frequency": null,
+      "escalateAbove": null
+    }
+  }
+]

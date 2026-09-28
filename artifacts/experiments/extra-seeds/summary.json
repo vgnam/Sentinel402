@@ -1,0 +1,875 @@
+{
+  "metadata": {
+    "suite": "sentinel-research-experiments-v1",
+    "generatedAt": "2026-09-28T12:21:55.209Z",
+    "seeds": [
+      407,
+      408,
+      409
+    ],
+    "repetitions": 50,
+    "sourceHash": "794b3e0fa71824e1650cfaf977a52598970314948631724952fd0acd5751da57",
+    "node": "v22.18.0",
+    "warning": "Synthetic, paired mechanism evaluation. Family-cluster bootstrap intervals describe sensitivity within these hand-designed families; not a representative population confidence claim. Leave-one-family-out is composition sensitivity, not unseen-family training/test generalization. Repair prevalence is a reweighting calculation. System timings include SQLite and sandbox, not a real payment network."
+  },
+  "counts": {
+    "seeds": 3,
+    "policyTrajectories": 2700,
+    "methods": 12,
+    "sensitivityConditions": 36,
+    "contentionCells": 12,
+    "faultCells": 27,
+    "recoveryCases": 5,
+    "randomizedProposals": 4000
+  },
+  "randomized": {
+    "metadata": {
+      "suite": "sentinel-randomized-service-v1",
+      "seed": 407,
+      "trajectories": 50,
+      "steps": 80,
+      "proposals": 4000,
+      "stimulusHash": "95f9238147fa7a59c80af5fd2d75afd0e57e4c3e133ebdcc414e7e297dd4df49",
+      "generatedAt": "2026-09-28T12:21:55.184Z",
+      "warning": "Seeded sequential model-based stress of the actual service with in-memory SQLite. Independent effect/state ledger and audit checks; not a formal proof, a concurrent stress run, or a representative attack distribution. Random UUIDs normalized only for reproducibility hashing."
+    },
+    "counts": {
+      "Allow": 463,
+      "Repair": 50,
+      "Escalate": 147,
+      "Block": 3340,
+      "succeeded": 302,
+      "failed": 89,
+      "unknown": 122,
+      "malformed": 349,
+      "revocations": 10
+    },
+    "invariantFailures": 0,
+    "failures": []
+  },
+  "seedRows": [
+    {
+      "seed": 407,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 407,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "f25bc95cded89ac322ae841647988deaf13cd45a7182e775e325d4ba95a87156"
+    },
+    {
+      "seed": 408,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 408,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "58426ff6d2e72218b4df89dcc8c7c643d2dd47ca8a86c968a4fa534f24ccd5b9"
+    },
+    {
+      "seed": 409,
+      "method": "unguarded",
+      "unsafeRate": 1,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "per_tx_cap",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "allowlist",
+      "unsafeRate": 0.8461538461538461,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "stateless",
+      "unsafeRate": 0.46153846153846156,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "budget_ledger",
+      "unsafeRate": 0.23076923076923078,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "strict_stateful",
+      "unsafeRate": 0,
+      "completion": 0.8,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "no_budget",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "no_count",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "no_replay",
+      "unsafeRate": 0.15384615384615385,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "no_binding",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "no_frequency",
+      "unsafeRate": 0.07692307692307693,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    },
+    {
+      "seed": 409,
+      "method": "sentinel",
+      "unsafeRate": 0,
+      "completion": 1,
+      "corpusHash": "86439e1257946fff682840c81c9a38e034495b0c72474703581ae535f9bc5d53"
+    }
+  ],
+  "paired": [
+    {
+      "baseline": "unguarded",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -1,
+      "ci95": [
+        -1,
+        -1
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "unguarded",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "per_tx_cap",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.8461538461538461,
+      "ci95": [
+        -1,
+        -0.6153846153846154
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "per_tx_cap",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "allowlist",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.8461538461538461,
+      "ci95": [
+        -1,
+        -0.6153846153846154
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "allowlist",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "stateless",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.46153846153846156,
+      "ci95": [
+        -0.7692307692307693,
+        -0.23076923076923078
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "stateless",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "budget_ledger",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.23076923076923078,
+      "ci95": [
+        -0.46153846153846156,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "budget_ledger",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "strict_stateful",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "strict_stateful",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0.2,
+      "ci95": [
+        0,
+        0.6
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_budget",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.15384615384615385,
+      "ci95": [
+        -0.38461538461538464,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_budget",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_count",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_count",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_replay",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.15384615384615385,
+      "ci95": [
+        -0.38461538461538464,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_replay",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_binding",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_binding",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_frequency",
+      "metric": "unsafeRate",
+      "direction": "negative favors Sentinel",
+      "estimate": -0.07692307692307693,
+      "ci95": [
+        -0.23076923076923078,
+        0
+      ],
+      "clusters": 13,
+      "samples": 2000
+    },
+    {
+      "baseline": "no_frequency",
+      "metric": "completion",
+      "direction": "positive favors Sentinel",
+      "estimate": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "clusters": 5,
+      "samples": 2000
+    }
+  ],
+  "repairMix": [
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "unguarded",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "per_tx_cap",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "allowlist",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "stateless",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "budget_ledger",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 0.9
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 0.75
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 0.5
+    },
+    {
+      "method": "strict_stateful",
+      "repairPrevalence": 1,
+      "expectedCompletion": 0
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_budget",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_count",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_replay",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_binding",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "no_frequency",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.1,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.25,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 0.5,
+      "expectedCompletion": 1
+    },
+    {
+      "method": "sentinel",
+      "repairPrevalence": 1,
+      "expectedCompletion": 1
+    }
+  ],
+  "systems": {
+    "invariantFailures": 0
+  }
+}

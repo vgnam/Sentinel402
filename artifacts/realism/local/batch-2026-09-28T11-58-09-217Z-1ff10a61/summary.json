@@ -1,0 +1,43 @@
+{
+  "batchId": "batch-2026-09-28T11-58-09-217Z-1ff10a61",
+  "generatedAt": "2026-09-28T11:58:09.220Z",
+  "rpc": "http://127.0.0.1:18999",
+  "requestedRuns": 3,
+  "runs": [
+    {
+      "runId": "batch-2026-09-28T11-58-09-217Z-1ff10a61-1",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T11-58-09-217Z-1ff10a61-1/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T11-58-09-217Z-1ff10a61-2",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T11-58-09-217Z-1ff10a61-2/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T11-58-09-217Z-1ff10a61-3",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T11-58-09-217Z-1ff10a61-3/summary.json"
+    }
+  ],
+  "paymentMode": "solana-local",
+  "warning": "Independent test wallets/mints on a private local ledger. No public faucet or live model calls. Not public devnet settlement evidence.",
+  "completedRuns": 3,
+  "passedRuns": 3,
+  "status": "passed"
+}

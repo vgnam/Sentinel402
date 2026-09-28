@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "suite": "sentinel-randomized-service-v1",
+    "seed": 407,
+    "trajectories": 50,
+    "steps": 80,
+    "proposals": 4000,
+    "stimulusHash": "95f9238147fa7a59c80af5fd2d75afd0e57e4c3e133ebdcc414e7e297dd4df49",
+    "generatedAt": "2026-09-28T12:21:55.184Z",
+    "warning": "Seeded sequential model-based stress of the actual service with in-memory SQLite. Independent effect/state ledger and audit checks; not a formal proof, a concurrent stress run, or a representative attack distribution. Random UUIDs normalized only for reproducibility hashing."
+  },
+  "counts": {
+    "Allow": 463,
+    "Repair": 50,
+    "Escalate": 147,
+    "Block": 3340,
+    "succeeded": 302,
+    "failed": 89,
+    "unknown": 122,
+    "malformed": 349,
+    "revocations": 10
+  },
+  "invariantFailures": 0,
+  "failures": []
+}

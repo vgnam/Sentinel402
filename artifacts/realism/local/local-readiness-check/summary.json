@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-09-28T11:48:56.969Z",
+  "network": "Solana local validator",
+  "mode": "solana-local",
+  "runId": "local-readiness-check",
+  "status": "incomplete",
+  "asset": "New six-decimal test token; NOT USDC and NOT money",
+  "payer": "DtyCRAPuLe2zgbmjYu6qk8qaEUjFj6UJG3R4HyETB15W",
+  "merchant": "BX3b4rfs1DkjutQ41zwUsr76CVEmBQWcAeBNRcC2fqXE",
+  "mint": "64Y2kqpDLtmBKnPFS3juxdUbgsF2hczN5cyrQsnfTd6G",
+  "rpc": "http://127.0.0.1:8899",
+  "transactions": [],
+  "limitations": [
+    "One client-side SPL test-token adapter; not a deployed Sentinel Solana program or complete x402 protocol integration.",
+    "Invoices are pinned by the trusted demo operator; external merchant signatures/provenance are not demonstrated.",
+    "Token budgets exclude SOL fees and account rent. Unknown outbox entries never generate a fresh replacement transaction automatically.",
+    "Private local ledger only; not evidence of public devnet/mainnet settlement or distributed consensus performance."
+  ],
+  "reason": "SOLANA_RPC_UNREACHABLE",
+  "nextStep": "Start the local validator, then resume with --local --run-id and this runId. After resetting the validator, start a new run instead. Incomplete reports are not successful settlement evidence."
+}

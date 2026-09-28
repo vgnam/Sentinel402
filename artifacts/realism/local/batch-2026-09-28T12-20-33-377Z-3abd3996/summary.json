@@ -1,0 +1,113 @@
+{
+  "batchId": "batch-2026-09-28T12-20-33-377Z-3abd3996",
+  "generatedAt": "2026-09-28T12:20:33.380Z",
+  "rpc": "http://127.0.0.1:18999",
+  "requestedRuns": 10,
+  "runs": [
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-1",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-1/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-2",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-2/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-3",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-3/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-4",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-4/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-5",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-5/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-6",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-6/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-7",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-7/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-8",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-8/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-9",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-9/summary.json"
+    },
+    {
+      "runId": "batch-2026-09-28T12-20-33-377Z-3abd3996-10",
+      "exitCode": 0,
+      "status": "passed",
+      "reason": null,
+      "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+      "transactionCount": 2,
+      "committedTestTokens": 2,
+      "evidence": "../batch-2026-09-28T12-20-33-377Z-3abd3996-10/summary.json"
+    }
+  ],
+  "paymentMode": "solana-local",
+  "warning": "Independent test wallets/mints on a private local ledger. No public faucet or live model calls. Not public devnet settlement evidence.",
+  "completedRuns": 10,
+  "passedRuns": 10,
+  "status": "passed"
+}

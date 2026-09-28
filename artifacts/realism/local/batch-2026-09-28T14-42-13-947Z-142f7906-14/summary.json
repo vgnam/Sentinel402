@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-09-28T14:43:51.360Z",
+  "network": "Solana local validator",
+  "mode": "solana-local",
+  "runId": "batch-2026-09-28T14-42-13-947Z-142f7906-14",
+  "status": "passed",
+  "asset": "New six-decimal test token; NOT USDC and NOT money",
+  "payer": "3VMWCUsbTJVTCFUBFdf8HZ5x9w3vkaZ146Nwp9sobvNm",
+  "merchant": "9wV16ykFb2wkgQmepu7yeG5o3LgKCsiDMALJHseRwn3x",
+  "mint": "5fcWJ171zkGGP2h32AeSxASoDLwe8Z19rhLxUQMYix3r",
+  "rpc": "http://127.0.0.1:18999",
+  "transactions": [
+    {
+      "reference": "invoice-clean",
+      "initialStatus": "unknown",
+      "status": "succeeded",
+      "receipt": {
+        "mode": "solana-local",
+        "transaction": "4azwyh7NYSekUCixwWmWXtrMiuaC7eNpGqbUnRtSvga9Wkfm9trQGK6naSqQCKD5YdSgb9cVFKSijDiDsPoabyec",
+        "network": "solana-local",
+        "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+        "mint": "5fcWJ171zkGGP2h32AeSxASoDLwe8Z19rhLxUQMYix3r",
+        "rpc": "http://127.0.0.1:18999",
+        "status": "succeeded",
+        "amount": "1000000",
+        "slot": 1844,
+        "finality": "confirmed"
+      },
+      "idempotentRetry": true
+    },
+    {
+      "reference": "invoice-lost-response",
+      "initialStatus": "unknown",
+      "status": "succeeded",
+      "receipt": {
+        "mode": "solana-local",
+        "transaction": "5nQimwgtw9TeGMtGPzyjuNYrKzqDNKr8LPG9DLGFVF4ydnnUMU9VVY3rgLpvVu8gwQz8hA9KALdJ1zYRXqw2krex",
+        "network": "solana-local",
+        "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+        "mint": "5fcWJ171zkGGP2h32AeSxASoDLwe8Z19rhLxUQMYix3r",
+        "rpc": "http://127.0.0.1:18999",
+        "status": "succeeded",
+        "amount": "1000000",
+        "slot": 1848,
+        "finality": "confirmed"
+      },
+      "idempotentRetry": true
+    }
+  ],
+  "limitations": [
+    "One client-side SPL test-token adapter; not a deployed Sentinel Solana program or complete x402 protocol integration.",
+    "Invoices are pinned by the trusted demo operator; external merchant signatures/provenance are not demonstrated.",
+    "Token budgets exclude SOL fees and account rent. Unknown outbox entries never generate a fresh replacement transaction automatically.",
+    "Private local ledger only; not evidence of public devnet/mainnet settlement or distributed consensus performance."
+  ],
+  "genesis": "HWyaTF3X8h1sWPy6R25Qx6BxRa7CSDdZL1awX1MHwgoL",
+  "validatorVersion": {
+    "feature-set": 3383571666,
+    "solana-core": "4.3.0"
+  },
+  "setupSignature": "4yV3EBNkKymGkXHhpLCw9TYQA1cLTsVKfiHSvyMrBUSpvG2sunedJYjxNaEfnJZXmtjHXTyjk2epxPU2pumTFXJX",
+  "blocked": {
+    "decision": "Block",
+    "status": "not_executed",
+    "reasons": [
+      "RECIPIENT_NOT_ALLOWED",
+      "BUDGET_EXCEEDED",
+      "TRANSACTION_COUNT_EXCEEDED"
+    ]
+  },
+  "committedTestTokens": 2,
+  "audit": {
+    "valid": true,
+    "count": 8,
+    "head": "63e1fff83b6d80b9692b648ed4755e5e0cf3cfd7487789615088a777a6559817",
+    "anchored": false
+  },
+  "broadcastsThisInvocation": 3,
+  "tokenBalances": {
+    "payer": "8000000",
+    "merchant": "2000000",
+    "decimals": 6
+  }
+}

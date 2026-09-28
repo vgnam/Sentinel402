@@ -17,10 +17,13 @@ On macOS/Linux use `npm` instead of `npm.cmd`. Requires Node.js ≥22.18; no ins
 - [Prepared Corelia submission text and remaining personal/public-link fields](docs/SUBMISSION.md)
 - [Demo recording script, pitch, and judge Q&A](docs/DEMO_SCRIPT.md)
 - [End-to-end workflow, forced crashes, devnet adapter and measured limitations](docs/REALISM.md)
+- [Run repeated Solana local-validator trials without a public faucet](docs/LOCAL_VALIDATOR.md)
 
 Recommended direction: **Best AI Product / AI x Web3**, subject to your track choice and organizer eligibility rules. Current payments are simulated; there is no deployed Solana program or live blockchain settlement. The linked documents separate completed features from future integrations. Local preparation does not submit or publish the project.
 
 Research update (28 September): **70 tests passed**, 48 HTTP workflow episodes, 15 forced-process crash cases and 4,000 randomized proposals executed. Strict stateful and Sentinel performed identically in the new workflow; economic duplicate purchases remain a limitation. An optional devnet test-token CLI now has a durable outbox and receipt verification, but its on-chain demo is **incomplete because the faucet failed**. It requires SDK dependencies only under `integrations/solana`; the default app remains sandbox-only. See [settings, results and commands](docs/REALISM.md).
+
+Local-validator extension: **76 tests passed** and **63/63 passed local trials** on Agave 4.3.0 in WSL, with **126 confirmed test-token payments** (3/3, 10/10 and 32/32 batches). One 50-run batch stopped honestly at 18/50 when the host system drive filled and the WSL ledger hit a RocksDB `Input/output error`; no Sentinel invariant failed, the image was moved to `D:\wsl\Ubuntu`, and the launcher now uses the non-deprecated `--limit-blockstore-size`. Restart/resume produced no new broadcasts or duplicate payment. Additional volume runs the same day: 3 new seeds × 50 repetitions = 2,700 trajectories, 144 workflow episodes and 50 forced-crash cases, all with 0 invariant failures. [Run it again without a public faucet](docs/LOCAL_VALIDATOR.md). These private-ledger results do not replace public devnet evidence.
 
 ---
 
