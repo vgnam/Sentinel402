@@ -4,6 +4,7 @@ import { contract, proposal, hash, fingerprint, invoiceKey, evaluate, InputError
 export class Sentinel {
   constructor(store, adapter, { clock = Date.now, paymentTimeoutMs = 5000 } = {}) {
     this.store = store; this.adapter = adapter; this.clock = clock; this.paymentTimeoutMs = paymentTimeoutMs;
+    this.mode = adapter.mode ?? 'sandbox';
   }
   createIntent(input) {
     const id = `int_${randomUUID()}`, c = contract(input, id), token = `s402_agent_${randomBytes(32).toString('hex')}`;
@@ -44,7 +45,7 @@ export class Sentinel {
       }
       const auditHead = this.store.audit({ event: 'payment.proposed', intentId: boundIntent, original: raw, ...result, transactionId,
         stateBefore: s ? { encumbered: s.spent, usedSlots: s.count } : null, time: now });
-      return { ...result, transactionId, auditHead, status: transactionId ? 'reserved' : 'not_executed', mode: 'sandbox' };
+      return { ...result, transactionId, auditHead, status: transactionId ? 'reserved' : 'not_executed', mode: this.mode };
     });
   }
   finish(id, receipt) {

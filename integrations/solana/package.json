@@ -1,0 +1,8 @@
+{
+  "name": "sentinel402-devnet-integration",
+  "private": true,
+  "type": "module",
+  "description": "Optional Solana devnet test-token adapter demonstration",
+  "scripts": { "demo": "node demo.mjs" },
+  "dependencies": { "@solana/web3.js": "1.99.0", "@solana/spl-token": "0.4.15" }
+}

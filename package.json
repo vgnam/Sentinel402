@@ -19,6 +19,10 @@
     "research:experiments": "node research/experiments.mjs",
     "research:stress": "node research/stress.mjs",
     "research:randomized": "node research/randomized.mjs",
-    "research:llm:plan": "node research/live-run.mjs --expanded --dry-run"
+    "research:llm:plan": "node research/live-run.mjs --expanded --dry-run",
+    "research:workflow": "node research/workflow-run.mjs",
+    "research:adaptive": "node research/workflow-search.mjs",
+    "research:crashes": "node research/crash-run.mjs",
+    "demo:devnet": "npm --prefix integrations/solana run demo"
   }
 }

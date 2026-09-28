@@ -1,5 +1,16 @@
 # Local validation record
 
+## Realism extension — 28 September 2026
+
+- Windows x64, Node.js v22.18.0: syntax check passed and **70/70 tests passed**. Added actual forced-child-process recovery, HTTP paid-resource workflow, model-loop mock integration/error accounting, development-only feedback search, and devnet outbox/receipt verification tests. No paid API calls are made by these tests.
+- Ran 48 complete scripted workflow episodes through actual loopback HTTP. Strict stateful and Sentinel each had 0 unsafe effects across 16 episodes, but four task deviations from duplicate purchases across the two splits. They had identical results. Full artifacts: `artifacts/realism/workflow/`.
+- Forced 15 process terminations across five checkpoints, reopened with a fresh process and independent durable ledger: 0 invariant failures; six unresolved reservations retained capacity. Full artifacts: `artifacts/realism/crashes/`.
+- Ran randomized service stress: 50 × 80 = 4,000 proposals, 0 invariant failures. Full artifacts: `artifacts/experiments/randomized/`.
+- Ran development-only feedback selection with a scripted actor: rejection of authority spoof caused a switch to cumulative pressure; trial two produced duplicate purchases without violating the formal contract. This is not an LLM attack-success result. Artifacts: `artifacts/realism/adaptive/`.
+- Created a dedicated test wallet after user authorization and requested free Solana devnet SOL. The full devnet genesis hash matched. Faucet requests failed with RPC -32603 and then HTTP 429; requests stopped. No mint or payment transaction was created. `artifacts/realism/devnet/summary.json` is explicitly **incomplete**. Secrets remain in ignored `data/devnet/`.
+- The optional Solana SDK package was installed with scripts disabled. Default server/root package still requires no third-party runtime dependencies. Test-token adapter is CLI-only, uses no real funds, and is not a deployed Solana program or full x402 settlement integration.
+- No new paid inference, remote CI, public deployment or submission was performed. Live two-model runner and bounded search are ready, but the inference-budget choice is still pending. Research scope and reproduction instructions: [REALISM.md](REALISM.md).
+
 ## Hackathon preparation — 27 September 2026
 
 - Windows x64, Node.js v22.18.0. `npm run check` passed; `npm test` passed **53/53** tests. The pre-change baseline was 50/50. SQLite still emits its experimental-feature warning.

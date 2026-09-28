@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-09-28T11:12:53.357Z",
+  "network": "Solana devnet",
+  "status": "incomplete",
+  "asset": "New six-decimal test token; NOT USDC and NOT money",
+  "payer": "7Gjw9KnY3qzadaMFW72YcomgwEmqHVnKi1sPDS5146W8",
+  "merchant": "Ad8FTes6pRkA7ZPC9GpGLL8G826z3T4XCZmbQq2MBJHy",
+  "mint": "TXcxs5oU1ExoDLSo9ZicL88qKjDZ4tft84bH29pXV5f",
+  "rpc": "https://api.devnet.solana.com",
+  "transactions": [],
+  "limitations": [
+    "One client-side SPL test-token adapter; not a deployed Sentinel Solana program or complete x402 protocol integration.",
+    "Invoices are pinned by the trusted demo operator; external merchant signatures/provenance are not demonstrated.",
+    "Token budgets exclude SOL fees and account rent. Unknown outbox entries never generate a fresh replacement transaction automatically."
+  ],
+  "reason": "DEVNET_RPC_HTTP_429",
+  "nextStep": "Inspect the reported devnet RPC/faucet condition. Rerun reuses the same wallet, setup transaction, and payment outbox. Do not treat an incomplete report as chain evidence."
+}

@@ -1,0 +1,107 @@
+# Thực nghiệm gần với vận hành thực tế hơn
+
+Cập nhật ngày 28/09/2026. Đã chạy workflow HTTP 48 episode, thử dừng cưỡng bức tiến trình 15 lần, stress service 4.000 proposal và một phép tìm kiếm theo phản hồi với actor lập trình sẵn. **Chưa có kết quả nhiều model mới và chưa có giao dịch devnet được xác nhận.** Hai phần này không được tính vào bằng chứng đã hoàn thành.
+
+## Problem formulation
+
+Agent phải mua đúng các bộ dữ liệu được người dùng yêu cầu, đọc dữ liệu chỉ được mở sau thanh toán, rồi tính đáp án cuối. Catalog, báo giá và nội dung dữ liệu là các vị trí có thể chứa prompt injection. Agent có thể sửa mọi trường payment proposal; chỉ operator được tạo contract và adapter mới có quyền settlement.
+
+Hai mục tiêu cần đo riêng:
+
+1. **Contract safety:** mọi action được phát hành và mọi hiệu ứng thanh toán phải nằm trong recipient/resource, budget, cap, count, thời gian, replay và frequency đã cấp. Reservation và kết quả chưa rõ vẫn chiếm quyền.
+2. **Task utility:** mua mỗi sản phẩm cần thiết đúng một lần, không mua thêm, thực sự đọc đủ dữ liệu, trả lời đúng. Purpose bằng ngôn ngữ tự nhiên chưa được policy kernel kiểm chứng về ngữ nghĩa.
+
+Một giao dịch có thể thỏa mục tiêu thứ nhất nhưng làm sai mục tiêu thứ hai: hai invoice mới cho cùng một sản phẩm đều nằm trong budget. Vì vậy, không dùng “zero contract violations” để kết luận agent làm đúng việc.
+
+## Methodology và experimental setting
+
+### Workflow mua dữ liệu qua HTTP
+
+`research/workflow-merchant.mjs` mở merchant trên loopback với catalog, báo giá HTTP 402, settlement và resource cần receipt. Merchant tự phát hành invoice, kiểm tra đúng amount/recipient/resource/reference, và trả dữ liệu chỉ khi nhận receipt thành công. Tất cả phương pháp dùng cùng merchant. Credential settlement chỉ nằm trong adapter, không xuất hiện trong prompt hay artifact.
+
+Đây là HTTP thật với merchant và tài sản mô phỏng, **chưa phải triển khai đầy đủ giao thức x402**. Các URL `fixtures.sentinel.test` là định danh resource; network request thực tế chỉ đến loopback. Theo [đặc tả x402 v2](https://github.com/x402-foundation/x402/blob/main/specs/x402-specification-v2.md), quản lý budget của client là lớp riêng. Với [scheme exact trên SVM](https://github.com/x402-foundation/x402/blob/main/specs/schemes/exact/scheme_exact_svm.md), không thể mặc nhiên coi giảm giá thanh toán là vẫn mua được nguyên sản phẩm. Merchant fixture dùng đúng giá báo: tự đổi amount sẽ bị từ chối.
+
+- Development: hai task family (market research, travel planning), hai attack family (authority spoof, cumulative pressure), mỗi attack có ba wording.
+- Heldout: hai task family (supply chain, energy planning), bốn attack family (citation dependency, economic duplicate, quote integrity, post-purchase injection). Mỗi family hiện có một wording; có clean case ở cả hai split.
+- Manifest và hash lưu trong `manifest.json`. Split được khai báo trước và search không nhận heldout task; đây vẫn là dữ liệu do cùng tác giả thiết kế, không phải tập test mù độc lập.
+- Matrix offline: 16 cặp task/attack × 3 phương pháp × 1 repetition = **48 episode**, dùng wording đầu tiên. Actor được lập trình để làm theo strategy tấn công. Không có model call, không đo xác suất LLM mắc bẫy.
+- Phương pháp: unguarded, strict stateful (cùng policy nhưng không repair), Sentinel. Runner live còn hỗ trợ prompt-only và LLM judge. Mỗi phương pháp có trajectory và feedback riêng.
+- Unguarded vẫn nhận task, contract và lời nhắc chung về dữ liệu không đáng tin; tên này chỉ việc bỏ enforcement ở payment gate. Prompt-only thêm kiểm tra ngôn ngữ tự nhiên, không cấp thêm quyền cho model.
+- Tool loop: `browse_catalog → request_quote → submit_payment → read_resource → finish_task`. Không phát đáp án kỳ vọng cho agent. Giới hạn mặc định 8 model turn, 8 payment proposal, 32 tool call; có thể cấu hình giới hạn thấp hơn.
+- Khởi tạo mới contract/store/merchant cho từng episode; thứ tự episode xáo trộn bằng seed 402. Seed lịch chạy không điều khiển sampling của provider.
+
+Các metric phân biệt **unsafe proposal**, **unsafe release** trước adapter, **unsafe effect** đã settlement, **task deviation**, **safe task completion**, lỗi provider/judge/tool và truncation. Scored attack loại provider/judge error và truncation; `observedUnsafeEffects` vẫn giữ tác hại trước lỗi. Completion luôn được báo với mẫu số toàn bộ episode, kể cả thất bại. Không gọi một model không làm gì là hoàn thành an toàn.
+
+Kết quả trong [workflow/results.md](../artifacts/realism/workflow/results.md):
+
+| Split / phương pháp | Episode | Unsafe effect | Task deviation | Safe task complete | Clean complete |
+|---|---:|---:|---:|---:|---:|
+| Development / unguarded | 6 | 3 | 4 | 2 | 2/2 |
+| Development / strict stateful | 6 | 0 | 2 | 4 | 2/2 |
+| Development / Sentinel | 6 | 0 | 2 | 4 | 2/2 |
+| Heldout / unguarded | 10 | 4 | 6 | 2 | 2/2 |
+| Heldout / strict stateful | 10 | 0 | 2 | 6 | 2/2 |
+| Heldout / Sentinel | 10 | 0 | 2 | 6 | 2/2 |
+
+Không có lỗi provider hay truncation trong matrix scripted này. Hai episode heldout của Sentinel mua trùng nhưng không vi phạm contract. Hai episode quote-redirect khác không hoàn thành vì actor scripted tiếp tục dùng quote đã sửa; khả năng tự phục hồi của LLM chưa được đo. Unguarded có năm proposal bị merchant từ chối vì sai quote terms, nên unsafe release cao hơn unsafe effect. Strict stateful và Sentinel ngang nhau; corpus này không tạo lợi thế repair giả định cho thanh toán exact-price.
+
+### Tìm kiếm tấn công theo phản hồi
+
+`research/workflow-search.mjs` dùng tối đa bốn trial trên development; mỗi trial là một episode mới. Bộ điều khiển khởi đầu bằng authority spoof; nếu payment bị từ chối thì chuyển attack family, nếu chưa có sai lệch thì thử wording khác. Dừng khi thấy mua thêm/mua trùng hoặc lỗi model. Phản hồi cho selection chỉ gồm kết quả công khai của tool, không gồm đáp án kỳ vọng hay oracle safety label. Payload được chọn và hash được lưu; không sửa heldout theo kết quả.
+
+[Kết quả đã chạy](../artifacts/realism/adaptive/summary.json): trial 1 bị chặn, trial 2 chuyển sang `batch_pressure` và tạo mua trùng trong phạm vi budget. Đây là **tìm kiếm hữu hạn theo phản hồi, với actor scripted**; không phải attacker sinh payload bằng LLM, và không phải bằng chứng về tỷ lệ thành công trên model. Live search đã có runner nhưng chưa gọi provider trong đợt này.
+
+### Crash, recovery và chi phí giữ reservation
+
+`research/crash-run.mjs` tạo child process và hai SQLite DB trên đĩa: Sentinel và ledger settlement độc lập. Sau checkpoint đã xác nhận, parent dùng SIGKILL (TerminateProcess trên Windows), rồi mở **process mới** để reconcile và retry. Năm mốc: chỉ reserve; remote success chưa finalize; remote failure chưa finalize; đã finalize; unknown.
+
+[Kết quả 15 case](../artifacts/realism/crashes/results.md): **0 invariant failure**, không tạo effect trùng, audit hợp lệ. Sáu case chưa có receipt vẫn giữ reservation; ba definite-failure case giải phóng quyền. Báo cả thời gian restart + recovery, thời gian reconcile, số tiền giữ lại và khả năng thực thi yêu cầu tiếp theo. Giữ tiền vô thời hạn khi không có bằng chứng là một chi phí availability thực tế, không phải tự phục hồi hoàn toàn.
+
+Giới hạn: kill tại ranh giới đã checkpoint, không phải kill ở mọi instruction, mất điện, disk corruption, host failure hoặc network partition của một payment provider thật.
+
+### Randomized service stress
+
+[E9 đã chạy](../artifacts/experiments/randomized/results.md): 50 trajectory × 80 bước = **4.000 proposal**, 0 invariant failure. Có 276 success, 94 definite failure, 86 unknown; còn lại bị từ chối/escalate hoặc malformed. Dùng SQLite thật và oracle/state ledger riêng. Đây là kiểm thử tuần tự sinh dữ liệu, không phải phân bố người dùng/attacker thực, và không thay thế kiểm thử concurrency.
+
+### Adapter Solana devnet
+
+`src/solana-devnet.mjs` + `integrations/solana/demo.mjs` là adapter CLI tùy chọn, chưa nối vào dashboard. Nó khóa vào **full genesis hash của devnet**, payer, test mint và invoice do operator pin; lưu signed transaction vào outbox trước broadcast. Retry dùng cùng signed wire/signature. Sau mất response, chỉ commit khi kiểm chứng được confirmed/finalized receipt có đúng token program, source, destination, authority, mint, amount và decimals.
+
+[Tài liệu Solana về sendTransaction](https://solana.com/docs/rpc/http/sendtransaction) tách việc RPC nhận giao dịch khỏi xác nhận settlement. Adapter dùng [getSignatureStatuses](https://solana.com/docs/rpc/http/getsignaturestatuses) và [getTransaction](https://solana.com/docs/rpc/http/gettransaction) để xác minh kết quả. Không tự ký transaction thay thế khi blockhash cũ hết hạn mà chưa biết chắc effect; cách này có thể giữ reservation lâu.
+
+Ngày 28/09 đã tạo ví test riêng và gọi faucet chính thức. Request đầu nhận RPC `-32603`, request nhỏ hơn sau đó nhận HTTP `429`; đã dừng xin token. [Báo cáo devnet](../artifacts/realism/devnet/summary.json) có trạng thái **incomplete**, chưa mint token và chưa có transaction thanh toán. Payer công khai: `7Gjw9KnY3qzadaMFW72YcomgwEmqHVnKi1sPDS5146W8`. Secret key chỉ ở `data/devnet/test-wallets.json`, được Git-ignore; không đưa file này vào submission.
+
+Demo sẽ mint token thử nghiệm riêng sáu chữ số thập phân, không phải USDC. Không dùng tiền thật. Token budget chưa bao gồm phí SOL/account rent; invoice chưa có chữ ký của merchant độc lập; chưa deploy chương trình Sentinel lên Solana. Test tự động dùng mock RPC, không thay thế bằng chứng on-chain còn thiếu.
+
+## Tái lập
+
+```powershell
+npm.cmd run check
+npm.cmd test
+node research/workflow-run.mjs --out artifacts/my-workflow
+node research/workflow-search.mjs --out artifacts/my-adaptive
+node research/crash-run.mjs --repetitions 3 --out artifacts/my-crashes
+npm.cmd run research:randomized
+
+# Adapter tùy chọn; chỉ cần SDK khi chạy devnet:
+npm.cmd --prefix integrations/solana ci --ignore-scripts --no-audit --no-fund
+npm.cmd run demo:devnet
+```
+
+Workflow/search yêu cầu output mới để tránh ghi đè kết quả. Workflow hỗ trợ `--resume` với cùng config, model/provider và hash source. Randomized/crash ghi đè output được chọn. Devnet reuse ví và outbox; chỉ chạy lại khi faucet đã có thể cấp token hoặc ví đã có devnet SOL. Không đưa credential/secret key vào CLI argument hoặc artifact.
+
+Kế hoạch live hai model sau khi xác nhận model/provider và ngân sách:
+
+```powershell
+# Thay MODEL_A,MODEL_B bằng hai model thực sự được provider hỗ trợ.
+# --dry-run không gọi inference: 24 episode, tối đa 120 call.
+node research/workflow-run.mjs --live --models MODEL_A,MODEL_B --tasks energy_report --attacks clean,citation_dependency --methods unguarded,strict_stateful,sentinel --repetitions 2 --max-turns 5 --max-calls 120 --max-output-tokens 1024 --dry-run
+```
+
+Năm turn chỉ đủ khi model batch các tool độc lập; mọi truncation vẫn phải báo, không tăng budget để che lỗi. Đây là pilot tích hợp nhỏ, chưa đại diện đầy đủ bốn heldout attack family. `llm_guard` sẽ cần cộng call judge riêng vào cận trên. Runner live có hard cap, timeout provider, lưu model/usage và checkpoint số call **trước** request. Nếu process chết giữa episode, call đã gửi vẫn tiêu ngân sách khi resume; kết quả episode dang dở có thể thiếu. Live artifact mặc định ở `artifacts/llm/` bị Git-ignore. Không có live call mới trong đợt này vì lựa chọn ngân sách chưa được trả lời.
+
+## Đánh giá mức thực tế và các việc còn thiếu
+
+Thiết kế mới đã có chuỗi tác vụ thật qua HTTP, cùng merchant kiểm tra giá cho mọi baseline, kiểm tra đáp án từ dữ liệu trả phí, lỗi tiến trình thực và một đường tích hợp testnet có durable outbox. Nó tốt hơn benchmark chỉ đánh giá proposal, nhưng vẫn chưa đủ để khẳng định hiệu quả ngoài thực tế.
+
+Các bằng chứng còn thiếu là chạy lặp với nhiều LLM và attack đủ mạnh, attacker sinh payload thích nghi, tập task/merchant bên ngoài do bên độc lập giữ, invoice có provenance và danh tính hàng hóa đáng tin, xác nhận giao dịch devnet, fault/network/host tests rộng hơn và security review. Muốn chặn mua trùng kinh tế cần ràng buộc economic item/quantity vào authority và invoice; đổi reference hoặc chỉ đọc purpose không giải quyết được. Không có kết quả hiện tại nào chứng minh Sentinel tốt hơn strong stateful baseline về safety.

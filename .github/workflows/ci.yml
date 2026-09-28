@@ -17,6 +17,9 @@ jobs:
       - run: npm run benchmark
       - run: npm run benchmark:systems
       - run: node research/experiments.mjs --seeds 402,403 --repetitions 3 --out artifacts/ci-experiments
+      - run: node research/workflow-run.mjs --out artifacts/ci-workflow
+      - run: node research/workflow-search.mjs --out artifacts/ci-adaptive
+      - run: npm run research:randomized
       - uses: actions/upload-artifact@v4
         with:
           name: research-${{ matrix.os }}

@@ -16,8 +16,11 @@ On macOS/Linux use `npm` instead of `npm.cmd`. Requires Node.js ≥22.18; no ins
 - [Verified hackathon requirements, deadlines, and open questions](docs/HACKATHON.md)
 - [Prepared Corelia submission text and remaining personal/public-link fields](docs/SUBMISSION.md)
 - [Demo recording script, pitch, and judge Q&A](docs/DEMO_SCRIPT.md)
+- [End-to-end workflow, forced crashes, devnet adapter and measured limitations](docs/REALISM.md)
 
 Recommended direction: **Best AI Product / AI x Web3**, subject to your track choice and organizer eligibility rules. Current payments are simulated; there is no deployed Solana program or live blockchain settlement. The linked documents separate completed features from future integrations. Local preparation does not submit or publish the project.
+
+Research update (28 September): **70 tests passed**, 48 HTTP workflow episodes, 15 forced-process crash cases and 4,000 randomized proposals executed. Strict stateful and Sentinel performed identically in the new workflow; economic duplicate purchases remain a limitation. An optional devnet test-token CLI now has a durable outbox and receipt verification, but its on-chain demo is **incomplete because the faucet failed**. It requires SDK dependencies only under `integrations/solana`; the default app remains sandbox-only. See [settings, results and commands](docs/REALISM.md).
 
 ---
 
@@ -27,7 +30,7 @@ Một agent chỉ nhận token gắn với một intent. Mọi đề xuất đi 
 
 ## Chạy từ bản clone mới
 
-Yêu cầu **Git** và **Node.js ≥ 22.18**. Repo không có dependency bên thứ ba, nên không cần `npm install` hay bước build. Trên Windows PowerShell, dùng `npm.cmd` nếu chính sách chạy script chặn `npm.ps1`.
+Yêu cầu **Git** và **Node.js ≥ 22.18**. Ứng dụng sandbox mặc định không có dependency bên thứ ba, nên không cần `npm install` hay bước build. Adapter devnet tùy chọn có SDK riêng trong `integrations/solana`. Trên Windows PowerShell, dùng `npm.cmd` nếu chính sách chạy script chặn `npm.ps1`.
 
 ```powershell
 git clone https://github.com/vgnam/Sentinel402.git
@@ -164,7 +167,7 @@ Bộ mở rộng đã thêm multi-seed, paired family bootstrap, sensitivity the
 - Reservation tính vào ngân sách, số lượt, replay và frequency trước khi gọi adapter. Chỉ thành công mới tăng committed spend. Failure chắc chắn giải phóng reservation; timeout/exception giữ `unknown`.
 - Lookup receipt idempotent để đối soát; không có endpoint agent tự báo “thành công/thất bại”. Reservation không tự hết hạn sau crash.
 - Log hash chain có thể phát hiện sửa nội dung. Phải neo head ngoài DB để phát hiện kẻ tấn công viết lại toàn bộ chuỗi hoặc cắt phần cuối. Chưa tích hợp dịch vụ neo bên ngoài.
-- Chưa có settlement thật, wallet signer/KMS, merchant-authenticated invoice, đa tenant, billing, SSO, distributed consensus hoặc chứng minh formal. Gắn nhãn resource không chứng minh được ý nghĩa nội dung hàng hóa.
+- Chưa xác minh settlement on-chain; signer testnet tùy chọn chưa phải wallet/KMS cho production. Chưa có merchant-authenticated invoice, đa tenant, billing, SSO, distributed consensus hoặc chứng minh formal. Gắn nhãn resource không chứng minh được ý nghĩa nội dung hàng hóa.
 - Reference hiện là chuỗi do caller cung cấp, chống replay theo `(intent, recipient, reference)`; thay cả reference có thể vượt lớp duplicate detection nhưng vẫn bị budget/count/frequency giới hạn. Invoice thật cần binding từ payment adapter/merchant.
 - SQLite của Node 22 còn phát cảnh báo experimental. File store và service phù hợp prototype/single-host pilot; cần đánh giá persistence, HA và security độc lập trước khi kết nối tiền thật.
 
