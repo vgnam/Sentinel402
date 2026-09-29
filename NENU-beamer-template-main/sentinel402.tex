@@ -3,7 +3,7 @@
 \usetheme{sintef}
 \usepackage{booktabs}
 \usepackage{listings}
-\usetikzlibrary{arrows.meta,positioning,calc}
+\usetikzlibrary{arrows.meta,positioning,calc,shadows}
 
 \usefonttheme[onlymath]{serif}
 
@@ -41,6 +41,15 @@
 \course{UniHackfest 2026 \,\textbullet\, Best AI Product \,\textbullet\, AI x Web3}
 \author[NUVA]{Team NUVA \,\textbar\, Vu Gia Nam \,\&\, Nong Nhu Uyen}
 \date{September 2026}
+
+% Sentinel402 logo on a white card over the red half of the title page
+\addtobeamertemplate{title page}{}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[fill=white,rounded corners=3mm,inner sep=3mm,drop shadow={opacity=0.25}]
+      at ([xshift=-0.19\paperwidth]current page.east)
+      {\includegraphics[width=3.6cm]{assets/sentinel402-logo}};
+  \end{tikzpicture}%
+}
 
 \begin{document}
 \maketitle
@@ -129,6 +138,7 @@ The agent sends \textbf{four concurrent 4-USDC requests}.
 \begin{frame}{Sentinel402 in One Sentence}
 \begin{center}
   \vspace{1mm}
+  \raisebox{-0.35\height}{\includegraphics[height=1.1cm]{assets/sentinel402-shield}}\hspace{3mm}%
   {\Large\textcolor{maincolor}{\textbf{The model proposes. Sentinel decides.}}}
 \end{center}
 \vspace{3mm}
@@ -697,6 +707,20 @@ Source: \hrefcol{https://github.com/vgnam/Sentinel402}{github.com/vgnam/Sentinel
 \end{center}
 \end{frame}
 
-\backmatter
+% Closing slide: same style as the theme's \backmatter, with the logo as title
+\begingroup
+\themecolor{main}
+\begin{frame}[c]
+  \centering
+  \usebeamercolor[fg]{normal text}
+  \begin{tikzpicture}
+    \node[fill=white,rounded corners=3mm,inner sep=3mm]
+      {\includegraphics[width=4.2cm]{assets/sentinel402-logo}};
+  \end{tikzpicture}
+
+  \vspace{5mm}
+  \Large\textsl{Thank you for listening!\\ Any questions?}
+\end{frame}
+\endgroup
 
 \end{document}
