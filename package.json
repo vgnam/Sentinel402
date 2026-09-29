@@ -23,6 +23,7 @@
     "research:workflow": "node research/workflow-run.mjs",
     "research:adaptive": "node research/workflow-search.mjs",
     "research:crashes": "node research/crash-run.mjs",
+    "research:separation": "node research/separation.mjs",
     "demo:devnet": "npm --prefix integrations/solana run demo",
     "validator:local": "node scripts/local-validator.mjs",
     "demo:local": "node integrations/solana/demo.mjs --local",

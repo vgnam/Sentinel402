@@ -1,0 +1,1211 @@
+{
+  "metadata": {
+    "suite": "sentinel-stateful-separation-v1",
+    "generatedAt": "2026-09-29T02:02:37.181Z",
+    "node": "v22.18.0",
+    "repetitions": 3,
+    "arms": [
+      "unguarded",
+      "strict_stateful_memory",
+      "strict_stateful_durable",
+      "sentinel"
+    ],
+    "scenarios": [
+      "replay_after_restart",
+      "budget_after_restart",
+      "count_after_restart",
+      "clip_requires_repair"
+    ],
+    "cases": 48,
+    "limitation": "Scripted proposal streams against sandbox adapters on a local SQLite file. \"Restart\" closes and reopens the store and clears in-process state; it is not a power loss, a second host or a blockchain. The strong baseline is an in-process monitor by construction, and a durable hard-reject monitor is included as the fair comparison. Not a statement about third-party implementations."
+  },
+  "rows": [
+    {
+      "arm": "unguarded",
+      "scenario": "replay_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "budget_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "count_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "clip_requires_repair",
+      "repeat": 0,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Allow@6"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 6,
+      "violations": [
+        "amount"
+      ],
+      "paidUSDC": 6,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "replay_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "budget_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "count_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "clip_requires_repair",
+      "repeat": 0,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "replay_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "budget_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "count_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "clip_requires_repair",
+      "repeat": 0,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "replay_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "budget_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "count_after_restart",
+      "repeat": 0,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "clip_requires_repair",
+      "repeat": 0,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Repair@5"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 5,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "replay_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "budget_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "count_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "clip_requires_repair",
+      "repeat": 1,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Allow@6"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 6,
+      "violations": [
+        "amount"
+      ],
+      "paidUSDC": 6,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "replay_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "budget_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "count_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "clip_requires_repair",
+      "repeat": 1,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "replay_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "budget_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "count_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "clip_requires_repair",
+      "repeat": 1,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "replay_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "budget_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "count_after_restart",
+      "repeat": 1,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "clip_requires_repair",
+      "repeat": 1,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Repair@5"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 5,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "replay_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "budget_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "count_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "unguarded",
+      "scenario": "clip_requires_repair",
+      "repeat": 2,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Allow@6"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 6,
+      "violations": [
+        "amount"
+      ],
+      "paidUSDC": 6,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "replay_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 2,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "replay"
+      ],
+      "paidUSDC": 4,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "budget_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@5"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 5,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 5,
+      "violations": [
+        "budget"
+      ],
+      "paidUSDC": 13,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "count_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Allow@2"
+      ],
+      "probeAuthorized": true,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 1,
+      "unauthorizedPayments": 1,
+      "unauthorizedUSDC": 2,
+      "violations": [
+        "count"
+      ],
+      "paidUSDC": 8,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_memory",
+      "scenario": "clip_requires_repair",
+      "repeat": 2,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "replay_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "budget_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "count_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "strict_stateful_durable",
+      "scenario": "clip_requires_repair",
+      "repeat": 2,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Escalate"
+      ],
+      "probeAuthorized": false,
+      "restart": false,
+      "externalPayments": 0,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 0,
+      "safeCompletion": false,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "replay_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 2,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "budget_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 4,
+      "expectedPayments": 4,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 8,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "count_after_restart",
+      "repeat": 2,
+      "preDecisions": [
+        "Allow@2",
+        "Allow@2",
+        "Allow@2"
+      ],
+      "probeDecisions": [
+        "Block"
+      ],
+      "probeAuthorized": false,
+      "restart": true,
+      "externalPayments": 3,
+      "expectedPayments": 3,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 6,
+      "safeCompletion": true,
+      "auditValid": true
+    },
+    {
+      "arm": "sentinel",
+      "scenario": "clip_requires_repair",
+      "repeat": 2,
+      "preDecisions": [],
+      "probeDecisions": [
+        "Repair@5"
+      ],
+      "probeAuthorized": true,
+      "restart": false,
+      "externalPayments": 1,
+      "expectedPayments": 1,
+      "duplicateExternalPayments": 0,
+      "unauthorizedPayments": 0,
+      "unauthorizedUSDC": 0,
+      "violations": [],
+      "paidUSDC": 5,
+      "safeCompletion": true,
+      "auditValid": true
+    }
+  ],
+  "summary": {
+    "byArm": {
+      "unguarded": {
+        "cases": 12,
+        "unauthorizedPayments": 12,
+        "unauthorizedUSDC": 45,
+        "duplicateExternalPayments": 9,
+        "probesAuthorizedAfterRestart": 9,
+        "probesBlockedAfterRestart": 0,
+        "safeCompletions": 0,
+        "clipDelivered": 0,
+        "clipUnsafe": 3,
+        "auditValid": true
+      },
+      "strict_stateful_memory": {
+        "cases": 12,
+        "unauthorizedPayments": 9,
+        "unauthorizedUSDC": 27,
+        "duplicateExternalPayments": 9,
+        "probesAuthorizedAfterRestart": 9,
+        "probesBlockedAfterRestart": 0,
+        "safeCompletions": 0,
+        "clipDelivered": 0,
+        "clipUnsafe": 0,
+        "auditValid": true
+      },
+      "strict_stateful_durable": {
+        "cases": 12,
+        "unauthorizedPayments": 0,
+        "unauthorizedUSDC": 0,
+        "duplicateExternalPayments": 0,
+        "probesAuthorizedAfterRestart": 0,
+        "probesBlockedAfterRestart": 9,
+        "safeCompletions": 9,
+        "clipDelivered": 0,
+        "clipUnsafe": 0,
+        "auditValid": true
+      },
+      "sentinel": {
+        "cases": 12,
+        "unauthorizedPayments": 0,
+        "unauthorizedUSDC": 0,
+        "duplicateExternalPayments": 0,
+        "probesAuthorizedAfterRestart": 0,
+        "probesBlockedAfterRestart": 9,
+        "safeCompletions": 12,
+        "clipDelivered": 3,
+        "clipUnsafe": 0,
+        "auditValid": true
+      }
+    },
+    "preRestartParity": true
+  }
+}

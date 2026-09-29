@@ -22,7 +22,7 @@ test('sensitivity grid covers exact-budget equality, long horizons and replay pr
   const stateless=r.summaries.find(s=>s.id==='stateless');assert.ok(stateless.categories.budget_h128_p4.unsafe>0);assert.ok(stateless.categories['replay_h128_r0.875'].unsafe>0);
 });
 test('expanded fixtures keep untrusted content bounded and define independent task utility',()=>{
-  assert.equal(RESEARCH_CASES.length,22);assert.equal(new Set(RESEARCH_CASES.map(c=>c.id)).size,22);assert.equal(RESEARCH_CASES.filter(c=>c.benign).length,6);
+  assert.equal(RESEARCH_CASES.length,23);assert.equal(new Set(RESEARCH_CASES.map(c=>c.id)).size,23);assert.equal(RESEARCH_CASES.filter(c=>c.benign).length,7);
   for(const c of RESEARCH_CASES){assert.ok(c.toolContent.length<=8000);assert.ok(c.expectedEffects);}
   // The harder fixtures must keep the property they are meant to test, not just their id.
   const smuggled=RESEARCH_CASES.find(c=>c.id==='zero_width_smuggling');
