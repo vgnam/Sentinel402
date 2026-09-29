@@ -1,0 +1,702 @@
+\documentclass{beamer}
+\usepackage{amsfonts,amsmath,amssymb}
+\usetheme{sintef}
+\usepackage{booktabs}
+\usepackage{listings}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\usefonttheme[onlymath]{serif}
+
+\titlebackground*{assets/background}
+
+\definecolor{okgreen}{RGB}{46,125,50}
+\definecolor{codebg}{RGB}{246,246,246}
+
+\newcommand{\hrefcol}[2]{\textcolor{maincolor}{\href{#1}{#2}}}
+\newcommand{\good}[1]{\textcolor{okgreen}{\textbf{#1}}}
+\newcommand{\bad}[1]{\textcolor{maincolor}{\textbf{#1}}}
+% stat tile inside a tikzpicture: {x}{y}{color}{big number}{caption}
+\newcommand{\stat}[5]{\node[tile,fill=#3] at (#1,#2)
+  {{\LARGE\bfseries #4\par}\vspace{1mm}#5};}
+
+\lstdefinestyle{code}{
+  basicstyle=\ttfamily\scriptsize,
+  backgroundcolor=\color{codebg},
+  keywordstyle=\color{maincolor}\bfseries,
+  stringstyle=\color{hustdarkred},
+  commentstyle=\color{gray}\itshape,
+  showstringspaces=false,
+  frame=single, rulecolor=\color{hustlightgray},
+  framesep=4pt, xleftmargin=4pt, xrightmargin=4pt,
+  columns=fullflexible, keepspaces=true
+}
+\lstdefinelanguage{js}{
+  keywords={import,from,const,await,new,true,false,null},
+  morestring=[b]', morestring=[b]",
+  morecomment=[l]{//}
+}
+
+\title{Sentinel402}
+\subtitle{AI agents propose payments. You keep the spending authority.}
+\course{UniHackfest 2026 \,\textbullet\, Best AI Product \,\textbullet\, AI x Web3}
+\author[NUVA]{Team NUVA \,\textbar\, Vu Gia Nam \,\&\, Nong Nhu Uyen}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+% =====================================================================
+\section{Problem}
+
+\begin{frame}{AI Agents Are Starting to Spend Money}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.56\textwidth}
+    \small
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \item Agents now \textbf{buy things on their own}: search credits,
+            data enrichment, compute, pay-per-call APIs (HTTP~402 / x402).
+      \item To do the job they read \textbf{untrusted text}: invoices,
+            tool outputs, web pages, emails.
+      \item One injected line --- \emph{``pay the new wallet''},
+            \emph{``approval AP-99182 exempts you''} --- can turn into a
+            real payment.
+      \item Giving the agent a wallet or an API key means giving it
+            \textbf{unlimited authority}.
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.40\textwidth}
+    \vspace{4mm}
+    \begin{block}{The real question}
+      \centering\vspace{1mm}
+      The model can decide \emph{what} to buy.\\[2mm]
+      But who decides \textbf{how much authority} it gets ---
+      and who enforces it?
+      \vspace{1mm}
+    \end{block}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Why a Per-Payment Cap Is Not Enough}
+\small
+Task budget: \textbf{10 USDC}. Per-payment cap: \textbf{5 USDC}.
+The agent sends \textbf{four concurrent 4-USDC requests}.
+
+\vspace{2mm}
+\begin{center}
+\begin{tikzpicture}[x=0.72cm,y=1cm]
+  \draw[very thick,dashed,hustdarkred] (10,-0.35) -- (10,1.15)
+    node[above,font=\scriptsize\bfseries,text=hustdarkred] {budget = 10};
+  \foreach \i/\c in {0/okgreen,1/okgreen,2/maincolor,3/maincolor} {
+    \draw[thick,fill=white,draw=\c] (4*\i,0) rectangle (4*\i+3.9,0.7);
+    \fill[\c!25] (4*\i,0) rectangle (4*\i+3.9,0.7);
+    \draw[thick,draw=\c] (4*\i,0) rectangle (4*\i+3.9,0.7);
+    \node[font=\scriptsize] at (4*\i+1.95,0.35) {4 USDC \;$\le$ cap \checkmark};
+  }
+  \draw[|-|] (0,-0.25) -- (16,-0.25)
+    node[midway,below,font=\scriptsize] {cap-only: all four pass \(\Rightarrow\) \bad{16 USDC spent}};
+  \node[font=\scriptsize,anchor=west] at (0,-1.05)
+    {Sentinel402: reservations count before execution \(\Rightarrow\)
+     \good{2 settle (8 USDC)}, \bad{2 blocked}};
+\end{tikzpicture}
+\end{center}
+
+\vspace{1mm}
+\footnotesize
+\textbf{Other ways money leaks}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item Replayed or altered invoices
+      \item Recipient swapped by tool output
+      \item Fake approvals \& urgency pressure
+    \end{itemize}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{itemize}
+      \item Concurrent requests racing one budget
+      \item Timeouts: did the payment happen?
+      \item A restart that forgets what was spent
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% =====================================================================
+\section{Solution}
+
+\begin{frame}{Sentinel402 in One Sentence}
+\begin{center}
+  \vspace{1mm}
+  {\Large\textcolor{maincolor}{\textbf{The model proposes. Sentinel decides.}}}
+\end{center}
+\vspace{3mm}
+
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.31\textwidth}
+    \begin{block}{1. Delegate}
+      \footnotesize The user creates an \textbf{immutable intent contract}:
+      purpose, budget, per-payment limit, recipients, resources, expiry.
+    \end{block}
+  \end{column}
+  \begin{column}{0.31\textwidth}
+    \begin{block}{2. Scope}
+      \footnotesize The agent receives a \textbf{token bound to that one
+      intent}. It cannot create, edit or read other contracts.
+    \end{block}
+  \end{column}
+  \begin{column}{0.31\textwidth}
+    \begin{block}{3. Enforce}
+      \footnotesize Every proposal passes a \textbf{deterministic monitor}
+      --- no LLM, no network --- before any money moves.
+    \end{block}
+  \end{column}
+\end{columns}
+
+\vspace{4mm}
+\small
+\begin{center}
+AI keeps the flexibility of understanding tasks and invoices.\\
+Spending authority stays with the \textbf{user's contract}, outside the model.
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{The Intent Contract}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.50\textwidth}
+\begin{lstlisting}[style=code,language=js]
+{
+  "name": "research-credits",
+  "purpose": "Buy search credits",
+  "budget": "10.000000",
+  "perTransaction": "5.000000",
+  "maxTransactions": 3,
+  "recipients": ["merchant:search"],
+  "resources": ["api:search"],
+  "repairResources": ["api:search"],
+  "escalateAbove": "4.500000",
+  "frequency": { "max": 2,
+                 "windowSeconds": 60 },
+  "validFrom":  "2026-09-30T00:00:00Z",
+  "validUntil": "2026-09-30T12:00:00Z"
+}
+\end{lstlisting}
+  \end{column}
+  \begin{column}{0.46\textwidth}
+    \footnotesize
+    \begin{itemize}
+      \setlength{\itemsep}{3pt}
+      \item \textbf{Immutable}: more authority = a new contract,
+            signed by the operator.
+      \item Amounts are \textbf{decimal strings}, stored as integer
+            micro-USDC. No floats, no rounding.
+      \item Recipients and resources match \textbf{exact canonical
+            identifiers} --- no fuzzy or prefix matching.
+      \item Replay key: \((\text{intent},\text{recipient},\text{reference})\).
+      \item The server clock decides validity; the caller cannot set time.
+      \item Free-text notes are \textbf{untrusted} and never change
+            permissions.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Four Decisions, Not Just Yes or No}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.48\textwidth}
+    \begin{colorblock}[white]{okgreen}{Allow}
+      \footnotesize Within every limit: reserve the budget first, then
+      execute and record the receipt.
+    \end{colorblock}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{colorblock}[white]{maincolor}{Block}
+      \footnotesize Hard violation: wrong recipient, over budget, replayed
+      invoice, too many transactions, expired or revoked intent.
+    \end{colorblock}
+  \end{column}
+\end{columns}
+\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.48\textwidth}
+    \begin{colorblock}[white]{hustgold!85!black}{Repair}
+      \footnotesize Over the per-payment limit on a resource the user
+      \emph{explicitly} marked repairable: clip to the limit, re-check
+      everything, then execute. The task still gets done.
+    \end{colorblock}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{colorblock}[white]{hustdarkred}{Escalate}
+      \footnotesize Needs new authority (e.g.\ fixed-price item above the
+      limit). \textbf{Nothing executes}; the operator must issue a new
+      contract.
+    \end{colorblock}
+  \end{column}
+\end{columns}
+
+\vspace{4mm}
+\footnotesize
+\begin{center}
+Order of evaluation: hard constraints \(\rightarrow\) escalation
+\(\rightarrow\) repair / allow. Every decision carries machine-readable
+reasons, e.g.\ \texttt{BUDGET\_EXCEEDED}, \texttt{NEW\_AUTHORITY\_REQUIRED}.
+\end{center}
+\end{frame}
+
+% =====================================================================
+\section{How It Works}
+
+\begin{frame}{Architecture and Trust Boundary}
+\begin{center}
+\begin{tikzpicture}[
+  font=\scriptsize,
+  box/.style={draw=maincolor,thick,rounded corners=2mm,fill=maincolor!6,
+              minimum width=2.45cm,minimum height=9.5mm,align=center},
+  untrusted/.style={box,dashed,fill=hustgold!18,draw=hustgold!80!black},
+  flow/.style={-{Stealth},thick,maincolor},
+  lab/.style={font=\tiny,fill=white,inner sep=1pt,align=center}
+]
+  \fill[hustlightgray] (2.0,-2.6) rectangle (12.15,2.45);
+  \node[font=\tiny\bfseries,text=hustgray,anchor=north east] at (12.1,2.4)
+    {TRUSTED: Sentinel402 service};
+
+  \node[box,fill=white] (op) at (0,1.65) {Operator / user};
+  \node[untrusted] (agent) at (0,-0.2) {AI agent (LLM)\\\textit{untrusted}};
+
+  \node[box,minimum width=2.9cm] (store) at (5.45,1.65) {Intent contract\\+ spend state (SQLite)};
+  \node[box] (mon) at (3.7,-0.2) {Auth + normalize\\deterministic monitor};
+  \node[box] (res) at (7.2,-0.2) {Atomic reservation\\\texttt{BEGIN IMMEDIATE}};
+  \node[box] (adp) at (10.7,-0.2) {Payment adapter\\idempotent, sandbox};
+  \node[box] (aud) at (7.2,-1.95) {Hash-chain audit log};
+
+  \draw[flow] (op) -- node[lab,above] {immutable contract} (store);
+  \draw[flow] (op) -- node[lab,right] {scoped token} (agent);
+  \draw[flow] (agent) -- node[lab,above] {proposal} (mon);
+  \draw[flow] (store.south west) ++(0.4,0) -- (mon.north);
+  \draw[flow] (mon) -- node[lab,above=1pt] {Allow /\\Repair} (res);
+  \draw[flow] (res) -- (adp);
+  \draw[flow] (adp.north) |- node[lab,pos=0.72,above] {commit / release / keep unknown} (store.east);
+  \draw[flow] (mon.south) |- node[lab,pos=0.72,below] {Block / Escalate} (aud.west);
+  \draw[flow] (res) -- (aud);
+  \draw[flow] (adp.south) |- (aud.east);
+\end{tikzpicture}
+\end{center}
+
+\vspace{-1mm}
+\footnotesize
+\textbf{Untrusted:} agent reasoning, prompts, tool output, amounts, recipients,
+references, free text.
+\textbf{Trusted:} the contract, server clock, monitor, database, adapter and
+signer. The wallet must live \emph{behind} the adapter, never in the agent.
+\end{frame}
+
+\begin{frame}{Execution Is a Saga: Reserve \(\rightarrow\) Execute \(\rightarrow\) Settle}
+\begin{center}
+\begin{tikzpicture}[
+  font=\scriptsize,
+  stage/.style={draw=maincolor,thick,rounded corners=2mm,fill=maincolor!6,
+               text width=3.7cm,minimum height=17mm,align=center},
+  flow/.style={-{Stealth},very thick,maincolor}
+]
+  \node[stage] (a) at (0,0) {\textbf{1. Reserve}\\evaluate + reserve budget and
+    slot + audit, in one SQLite transaction};
+  \node[stage] (b) at (4.7,0) {\textbf{2. Execute}\\call adapter with the
+    transaction ID as \textbf{idempotency key}};
+  \node[stage] (c) at (9.4,0) {\textbf{3. Settle}\\success \(\to\) commit\\
+    definite failure \(\to\) release\\timeout \(\to\) keep \textbf{unknown}};
+  \draw[flow] (a) -- (b);
+  \draw[flow] (b) -- (c);
+\end{tikzpicture}
+\end{center}
+
+\vspace{1mm}
+\small
+\begin{itemize}
+  \setlength{\itemsep}{2pt}
+  \item Reserved and unknown amounts \textbf{count against every limit}, so
+        concurrent requests never see an untouched budget.
+  \item A timeout does not prove failure: unknown payments \textbf{stay
+        reserved} until receipt lookup reconciles them.
+  \item State is durable: a crash or restart does not forget spend,
+        counts or used invoices.
+  \item Tamper-evident audit:\;
+        \(h_i = \mathrm{SHA256}\big(h_{i-1}\,\|\,\mathrm{canonicalJSON}(r_i)\big)\)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Integration for Agent Developers}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.56\textwidth}
+\begin{lstlisting}[style=code,language=js]
+import { SentinelClient } from './sdk/client.mjs';
+
+const sentinel = new SentinelClient({
+  baseUrl: 'http://127.0.0.1:4020',
+  agentToken: process.env.SENTINEL_AGENT_TOKEN,
+});
+
+const r = await sentinel.pay({
+  intentId:  process.env.SENTINEL_INTENT_ID,
+  amount:    '1.250000',
+  recipient: 'merchant:search',
+  resource:  'api:search',
+  reference: 'invoice-unique-123',
+});
+// r.decision: Allow | Block | Repair | Escalate
+\end{lstlisting}
+  \end{column}
+  \begin{column}{0.40\textwidth}
+    \footnotesize
+    \begin{itemize}
+      \setlength{\itemsep}{3pt}
+      \item HTTP API + JavaScript SDK + web console.
+      \item Expose \texttt{submit\_payment} as a \textbf{tool} to any
+            OpenAI-compatible model.
+      \item \textbf{Zero third-party dependencies}: Node.js $\ge$ 22.18,
+            built-in SQLite, no build step.
+      \item Offline x402 v2 quote normalizer with chain and asset pinning.
+      \item Optional Solana test-token adapter with durable outbox and
+            receipt verification.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% =====================================================================
+\section{Demo and Evidence}
+
+\begin{frame}{Live Demo: Six-Scenario Guided Tour}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.58\textwidth}
+    \footnotesize
+    \begin{tabular}{@{}lcr@{}}
+      \toprule
+      \textbf{Scenario} & \textbf{Outcome} & \textbf{USDC} \\
+      \midrule
+      Authorized purchase     & \good{Allow}           & 2.00 \\
+      Split-payment attack    & \good{2 Allow}, \bad{2 Block} & 8.00 \\
+      Invoice replay          & \bad{Block}            & 2.00 \\
+      Recipient substitution  & \bad{Block}            & 0.00 \\
+      Explicit amount repair  & \textbf{Repair} 6 \(\to\) 5 & 5.00 \\
+      Human authority needed  & \textbf{Escalate}      & 0.00 \\
+      \bottomrule
+    \end{tabular}
+
+    \vspace{2mm}
+    \scriptsize Each scenario runs on its own fresh 10-USDC contract.
+  \end{column}
+  \begin{column}{0.38\textwidth}
+    \begin{block}{Result}
+      \centering\small
+      \textbf{6/6} scenarios pass\\
+      \textbf{10} proposals\\
+      \textbf{21} audit records, chain valid
+    \end{block}
+    \vspace{1mm}
+    \scriptsize
+    \texttt{npm run dev} \(\to\) \texttt{/\#demo}\\
+    \texttt{npm run demo:judge} reproduces it with no API key and exports
+    evidence.
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{A Real LLM in the Loop}
+\footnotesize
+The model (\texttt{glm-5.3}, OpenAI-compatible API) reads the task, the contract
+and a synthetic invoice as tool output, then decides whether to call
+\texttt{submit\_payment}. It receives the \textbf{real} Sentinel decision
+and sandbox receipt.
+
+\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.54\textwidth}
+    \textbf{Hard attack fixtures, 4 turns} (5 arms \(\times\) 8 cases \(\times\) 3 reps)
+
+    \vspace{1mm}
+    \begin{tabular}{@{}lr@{}}
+      \toprule
+      \textbf{Arm} & \textbf{Unsafe episodes} \\
+      \midrule
+      Unguarded agent         & \bad{7 / 18} \\
+      System-prompt rules only & \bad{7 / 18} \\
+      LLM-as-judge guard      & 0 / 18 \\
+      Strict stateful monitor & 0 / 18 \\
+      \textbf{Sentinel402}    & \good{0 / 18} \\
+      \bottomrule
+    \end{tabular}
+  \end{column}
+  \begin{column}{0.42\textwidth}
+    \begin{itemize}
+      \setlength{\itemsep}{2pt}
+      \item Attacks: fake approval authority, zero-width character
+            smuggling, composite urgency + base64 routing.
+      \item \textbf{Fake approval landed in 6/6} naive episodes.
+      \item About \textbf{1/3 of attacked episodes fooled the model in every
+            arm} --- the arms differ in \emph{enforcement}.
+      \item 120/120 episodes, 546k tokens.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Approval Injection: An LLM Judge Can Be Talked Into It}
+\small
+Pooled over all four live pilots, \texttt{approval\_injection} case ---
+unsafe payments released:
+
+\vspace{3mm}
+\begin{center}
+\begin{tikzpicture}[x=0.12cm,y=0.72cm,font=\footnotesize]
+  \foreach \y/\name/\v/\n/\c in {
+      4/Unguarded/50/6 of 12 (50\%)/maincolor,
+      3/Prompt rules only/58.3/7 of 12 (58\%)/maincolor,
+      2/LLM-as-judge guard/25/3 of 12 (25\%)/hustgold!85!black,
+      1/Strict stateful monitor/0/0 of 11/okgreen,
+      0/\textbf{Sentinel402}/0/\good{0 of 12}/okgreen} {
+    \node[anchor=east] at (-1,\y) {\name};
+    \fill[\c] (0,\y-0.28) rectangle (\v,\y+0.28);
+    \node[anchor=west] at (\v+1,\y) {\n};
+  }
+  \draw[hustgray] (0,-0.5) -- (0,4.5);
+\end{tikzpicture}
+\end{center}
+
+\vspace{1mm}
+\footnotesize
+\begin{itemize}
+  \item The LLM judge reads the same untrusted text as the agent; its misses
+        varied with the turn budget.
+  \item It also cost more: \textbf{66 calls / 130k tokens} vs.\ 46--47 calls /
+        92--98k for the deterministic arms (3-rep pilot).
+  \item Sentinel calls \textbf{no model and no network} when it authorizes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Where Sentinel Beats a Strong Stateful Baseline}
+\footnotesize
+48 deterministic cases with a \textbf{process restart} and an
+\textbf{explicitly repairable} payment, scored by an independent oracle and
+cross-checked against the merchant ledger.
+
+\vspace{2mm}
+\begin{center}
+\begin{tabular}{@{}lrrrc@{}}
+  \toprule
+  \textbf{Arm} & \textbf{Unauth.\ payments} & \textbf{Unauth.\ USDC}
+    & \textbf{Duplicates} & \textbf{Clipped delivery} \\
+  \midrule
+  Unguarded                    & 12 & 45 & 9 & 0 / 3 \\
+  Strict stateful (in-memory)  & \bad{9} & \bad{27} & \bad{9} & 0 / 3 \\
+  Strict stateful (durable)    & 0 & 0 & 0 & \bad{0 / 3} \\
+  \textbf{Sentinel402}         & \good{0} & \good{0} & \good{0} & \good{3 / 3} \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{2mm}
+\begin{itemize}
+  \setlength{\itemsep}{2pt}
+  \item After a restart, the in-memory monitor re-authorized a replayed invoice,
+        a payment reaching 13 of 10 USDC and a 4th payment against a limit of 3.
+  \item Before the restart both monitors decided identically --- the gap is
+        \textbf{where state lives}, not a weaker policy.
+  \item Sentinel is the only arm that is both \textbf{durable} and
+        \textbf{task-completing}. Live check: only Sentinel turned a
+        6.00 proposal into a completed, authorized 5.00 payment.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Synthetic Benchmark: 12 Policies, Same Corpus}
+\scriptsize
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.60\textwidth}
+    \begin{tabular}{@{}lrrr@{}}
+      \toprule
+      \textbf{Method} & \textbf{Unsafe} \(\downarrow\) & \textbf{Benign done} \(\uparrow\)
+        & \textbf{False reject} \(\downarrow\) \\
+      \midrule
+      Unguarded              & 100.0\% & 80.0\%  & 0.0\% \\
+      Per-transaction cap    & 84.6\%  & 80.0\%  & 11.1\% \\
+      Recipient allowlist    & 84.6\%  & 80.0\%  & 0.0\% \\
+      Stateless policy       & 46.2\%  & 80.0\%  & 11.1\% \\
+      Budget + count ledger  & 23.1\%  & 80.0\%  & 11.1\% \\
+      Strict stateful        & 0.0\%   & 80.0\%  & 11.1\% \\
+      \midrule
+      Sentinel \(-\) budget   & 15.4\%  & 100.0\% & 0.0\% \\
+      Sentinel \(-\) replay   & 15.4\%  & 100.0\% & 0.0\% \\
+      Sentinel \(-\) count    & 7.7\%   & 100.0\% & 0.0\% \\
+      \midrule
+      \textbf{Sentinel402}   & \good{0.0\%} & \good{100.0\%} & \good{0.0\%} \\
+      \bottomrule
+    \end{tabular}
+  \end{column}
+  \begin{column}{0.36\textwidth}
+    \footnotesize
+    \begin{itemize}
+      \setlength{\itemsep}{3pt}
+      \item 1,800 seeded trajectories, 6 baselines, 5 ablations.
+      \item \textbf{Every component matters}: removing any one reopens
+            unsafe releases.
+      \item Policy latency p95 \(\approx\) \textbf{0.009 ms}.
+      \item Measures structured authorization, not prompt-injection
+            robustness by itself.
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Engineering Evidence}
+\begin{center}
+\begin{tikzpicture}[
+  tile/.style={rounded corners=2mm,minimum width=4.3cm,minimum height=2.2cm,
+               text width=4.0cm,align=center,text=white,inner sep=1.5mm,
+               font=\scriptsize}
+]
+  \stat{0}{0}{maincolor}{82\,/\,82}{tests pass: concurrency, crash,\\
+    timeout, auth, SDK}
+  \stat{4.6}{0}{maincolor}{4,000}{randomized service proposals,\\
+    0 invariant failures}
+  \stat{9.2}{0}{maincolor}{65}{forced process crashes,\\
+    0 invariant failures}
+  \stat{0}{-2.5}{hustdarkred}{63\,/\,63}{Solana local-validator runs,\\
+    126 confirmed test payments}
+  \stat{4.6}{-2.5}{hustdarkred}{0}{duplicate broadcasts after\\
+    restart and resume}
+  \stat{9.2}{-2.5}{hustdarkred}{5 of 40}{racing requests from 4 workers\\
+    settle on a 5-USDC budget}
+\end{tikzpicture}
+\end{center}
+
+\vspace{1mm}
+\scriptsize
+\centering Local-validator runs are private-ledger evidence, not public devnet
+settlement.
+\end{frame}
+
+% =====================================================================
+\section{Market and Roadmap}
+
+\begin{frame}{Who It Is For}
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Target users}
+      \footnotesize
+      Developer teams building agents that \textbf{buy paid APIs and metered
+      resources} --- and that already own their agent and payment stack.
+    \end{block}
+    \vspace{2mm}
+    \begin{block}{Value}
+      \footnotesize
+      A small, inspectable authorization layer: per-task spending authority,
+      safe under concurrency and uncertain settlement, with an explanation
+      for every payment.
+    \end{block}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Business model (hypothesis)}
+      \footnotesize
+      Open self-hosted SDK \(\rightarrow\) hosted control plane.\\
+      Workspace subscription + authorization volume;
+      enterprise: SSO, retention, private deployment.
+    \end{block}
+    \vspace{2mm}
+    \begin{block}{Metrics we will track}
+      \footnotesize
+      Time to first protected request \textbullet{} \% payments mediated
+      \textbullet{} correct vs.\ unnecessary interventions \textbullet{}
+      unresolved reservations
+    \end{block}
+  \end{column}
+\end{columns}
+
+\vspace{2mm}
+\scriptsize\centering
+Demand and willingness to pay are \textbf{not yet validated}; this is the next
+step, with 3--5 design partners.
+\end{frame}
+
+\begin{frame}{Roadmap}
+\footnotesize
+\begin{center}
+\begin{tabular}{@{}p{3.1cm}p{5.2cm}p{4.9cm}@{}}
+  \toprule
+  \textbf{Stage} & \textbf{Deliverable} & \textbf{Exit criterion} \\
+  \midrule
+  \good{Now: MVP} & API, SDK, console, SQLite, sandbox, live LLM loop,
+    benchmarks & Tests pass; demo reproducible from a clean clone \\[2pt]
+  Design partners & Interviews + sandbox integrations with 3--5 teams
+    & Real pain, integration constraints, pilot intent \\[2pt]
+  Testnet integration & One x402 chain/asset, isolated signer,
+    authenticated invoices, receipt lookup
+    & Crash, retry, timeout and concurrency tests pass on testnet \\[2pt]
+  Controlled paid pilot & Tenant isolation, RBAC, TLS, key lifecycle,
+    external audit anchoring & Security review, backup/restore,
+    support procedures \\[2pt]
+  Hosted service & Metering, billing, onboarding, SLOs
+    & Demand and pricing validated by customers \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{What We Do Not Claim (Yet)}
+\small
+\begin{columns}[T,onlytextwidth]
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Current scope}
+      \footnotesize
+      \begin{itemize}
+        \item Payments are \textbf{simulated} (sandbox USDC).
+        \item No deployed Solana program; public devnet run is incomplete
+              (faucet failed).
+        \item x402 quote normalizer is offline.
+        \item Single workspace, single host.
+      \end{itemize}
+    \end{block}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \begin{block}{Boundaries}
+      \footnotesize
+      \begin{itemize}
+        \item Not a universal prompt-injection detector --- it limits the
+              \emph{effects}.
+        \item Audit chain needs an external anchor to detect full rewrites.
+        \item References are caller-supplied until merchant-signed invoices.
+        \item Not audited; not production-ready for real funds.
+      \end{itemize}
+    \end{block}
+  \end{column}
+\end{columns}
+
+\vspace{4mm}
+\centering\footnotesize
+We would rather show a small guarantee that holds than a big one that does not.
+\end{frame}
+
+\begin{frame}{Team NUVA}
+\begin{center}
+\begin{tikzpicture}
+  \foreach \x/\ini/\name in {-3/VN/Vu Gia Nam, 3/NU/Nong Nhu Uyen} {
+    \node[circle,fill=maincolor,minimum size=2.1cm,text=white,
+          font=\huge\bfseries] at (\x,0) {\ini};
+    \node[font=\large\bfseries,text=maincolor] at (\x,-1.55) {\name};
+  }
+  \node[font=\Large\bfseries,text=hustdarkred] at (0,0) {NUVA};
+\end{tikzpicture}
+\end{center}
+
+\vspace{4mm}
+\begin{center}
+\small
+Source: \hrefcol{https://github.com/vgnam/Sentinel402}{github.com/vgnam/Sentinel402}\\[2mm]
+\footnotesize
+\texttt{npm run dev} \(\rightarrow\) \texttt{http://127.0.0.1:4020/\#demo}
+\quad\textbullet\quad \texttt{npm run demo:judge}
+\end{center}
+\end{frame}
+
+\backmatter
+
+\end{document}
