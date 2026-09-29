@@ -30,7 +30,8 @@ test('expanded fixtures keep untrusted content bounded and define independent ta
 });
 const done={message:{role:'assistant',content:'Done'},usage:{prompt_tokens:1,completion_tokens:1,total_tokens:2},model:'mock',latencyMs:1,finishReason:'stop'};
 test('call budget rejects a plan before inference; dry plan accounts for actor and judge calls',async()=>{
-  const cases=RESEARCH_CASES.slice(0,7);assert.equal(livePlan({cases}).worstCaseCalls,84);let calls=0;
+  // 7 cases x (2 turns per arm plus the 4 judge calls llm_guard can add) across the five live arms.
+  const cases=RESEARCH_CASES.slice(0,7);assert.equal(livePlan({cases}).worstCaseCalls,98);let calls=0;
   await assert.rejects(runLiveBenchmark({client:{info:()=>({model:'mock'}),complete:async()=>{calls++;return done;}},cases,maxCalls:10}),/exceeds/);assert.equal(calls,0);
 });
 test('completed live checkpoints resume without repeating calls and reject different config',async()=>{
